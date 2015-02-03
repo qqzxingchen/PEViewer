@@ -135,6 +135,11 @@ window.onload = function (){
 	    tableContainer.appendChild(document.createElement('br'));
 	    tableContainer.appendChild(document.createElement('br'));
 	}
+	if (PEDelayImportData.length != 0) {
+	    showImportData(PEDelayImportData, tableContainer,"延迟导入表");
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
 	if (PEExportData.length != 0)
 	{
 	    showExportData(PEExportData, tableContainer);
@@ -255,14 +260,14 @@ function showBaseData(data,container){
 	tbody.rows[0].appendChild( th4 );
 }		
 
-function showImportData(data,container){
+function showImportData(data,container,tableName){
     var table = document.createElement('table');
     var caption = document.createElement('caption');
 	var tbody = document.createElement('tbody');
 
     table.width = '100%';
 	table.cellSpacing = 0;
-    caption.appendChild(document.createTextNode( '导入表' )); 
+	caption.appendChild(document.createTextNode( tableName == null ? '导入表' : tableName )); 
 
     container.appendChild( table );
 	table.appendChild(caption);	

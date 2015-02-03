@@ -2,6 +2,7 @@
 #include "resource.h"
 #include "PEBaseClass.h"
 #include "PEImportClass.h"
+#include "PEDelayImportClass.h"
 #include "PEExportClass.h"
 #include "global.h"
 
@@ -9,6 +10,7 @@
 
 PEBase * peBase;
 PEImportClass * importObj;
+PEDelayImportClass * delayImportObj;
 PEExportClass * exportObj;
 
 LPCTSTR szAppName = TEXT("PEViewerAppName");
@@ -127,10 +129,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         szAppName, 
         szWndName,
         WS_THICKFRAME ,
-        GetSystemMetrics(SM_CXSCREEN) - fatherWndWidth - 40,
-        GetSystemMetrics(SM_CYSCREEN) - fatherWndHeight - 60,
-        fatherWndWidth,
-        fatherWndHeight,
+        GetSystemMetrics(SM_CXSCREEN) - wndWidth - 40,
+        GetSystemMetrics(SM_CYSCREEN) - wndHeight - 60,
+        wndWidth,
+        wndHeight,
         NULL, NULL, hInstance, NULL);
 
     ShowWindow(hwnd, iCmdShow);
@@ -262,6 +264,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         importObj = new PEImportClass( peBase );
         importObj->writeToTempFile();
+        delayImportObj = new PEDelayImportClass( peBase );
+        delayImportObj->writeToTempFile();
         exportObj = new PEExportClass( peBase );
         exportObj->writeToTempFile();
 
@@ -328,12 +332,20 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
     // 根据文件的全路径名得到文件名，并为其后缀上_index.html，作为html的文件名
     TCHAR fileName[MAX_PATH];   // 不包括全路径，仅有文件名和后缀民
     getFileNameFromFullPath(peFilePath,fileName);
+    for ( int i = wcslen(fileName)-1 ; i >= 0 ; i -- ){
+        if ( fileName[i] == '.' ){
+            fileName[i] = '_';
+            break;
+        }
+    }
+
     wsprintf( &fileName[wcslen(fileName)],TEXT("_index.html"),fileName );
     if ( htmlFilePath != NULL ) 
         wsprintf( htmlFilePath,TEXT("%s"),fileName );
 
     HANDLE dataFile,
             importDataFile,
+            delayImportDataFile,
             exportDataFile,
             scriptFile,
             styleFile,
@@ -352,6 +364,14 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
         OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,
         NULL );
+    delayImportDataFile = CreateFile( delayImportObj->GetTempFileName(),
+        GENERIC_READ,
+        FILE_SHARE_READ,
+        NULL,
+        OPEN_EXISTING,
+        FILE_ATTRIBUTE_NORMAL,
+        NULL );
+
     exportDataFile = CreateFile( exportObj->GetTempFileName(),
         GENERIC_READ,
         FILE_SHARE_READ,
@@ -399,6 +419,7 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
 
     writeFileDataToFile( outFile,dataFile );
     writeFileDataToFile( outFile,importDataFile );
+    writeFileDataToFile( outFile,delayImportDataFile);
     writeFileDataToFile( outFile,exportDataFile );
     writeFileDataToFile( outFile,scriptFile );
 
@@ -406,11 +427,15 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
 
     CloseHandle( dataFile );
     CloseHandle( importDataFile );
+    CloseHandle( delayImportDataFile );
     CloseHandle( exportDataFile );
     CloseHandle( scriptFile );
     CloseHandle( styleFile );
     CloseHandle( outFile );
 }
+
+
+
 void showHtml( const TCHAR htmlFilePath[] ){
     STARTUPINFO si = {sizeof(si)};
     PROCESS_INFORMATION pi;

@@ -15,8 +15,8 @@ const UINT ID_HOTKEY_ALT_R = 0x4000;        // 当按下Alt加R时
 
 const int OLDFILEMAXNUMBER = 10;            // 每次程序运行时读取config.txt文件中历史数据的个数
 
-const int fatherWndWidth = 300;
-const int fatherWndHeight = 200;
+const int wndWidth = 300;
+const int wndHeight = 200;
 
 const TCHAR scriptFilePath[] = TEXT("resources\\script.js");
 const TCHAR styleFilePath[] = TEXT("resources\\style.css");
