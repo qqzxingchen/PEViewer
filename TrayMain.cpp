@@ -4,6 +4,7 @@
 #include "PEImportClass.h"
 #include "PEDelayImportClass.h"
 #include "PEExportClass.h"
+#include "PERelocation.h"
 #include "global.h"
 
 #include "TrayMain.h"
@@ -12,6 +13,7 @@ PEBase * peBase;
 PEImportClass * importObj;
 PEDelayImportClass * delayImportObj;
 PEExportClass * exportObj;
+PERelocation * relocationObj;
 
 LPCTSTR szAppName = TEXT("PEViewerAppName");
 LPCTSTR szWndName = TEXT("PEViewer");
@@ -268,6 +270,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         delayImportObj->writeToTempFile();
         exportObj = new PEExportClass( peBase );
         exportObj->writeToTempFile();
+        relocationObj = new PERelocation( peBase );
+        relocationObj->writeToTempFile();
 
         TCHAR htmlFilePath [MAX_PATH];
         writeToHtml(peBase->getPEFilePath(),htmlFilePath);
@@ -347,6 +351,7 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
             importDataFile,
             delayImportDataFile,
             exportDataFile,
+            relocationDataFile,
             scriptFile,
             styleFile,
             outFile;
@@ -371,8 +376,14 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
         OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,
         NULL );
-
     exportDataFile = CreateFile( exportObj->GetTempFileName(),
+        GENERIC_READ,
+        FILE_SHARE_READ,
+        NULL,
+        OPEN_EXISTING,
+        FILE_ATTRIBUTE_NORMAL,
+        NULL );
+    relocationDataFile = CreateFile( relocationObj->GetTempFileName(),
         GENERIC_READ,
         FILE_SHARE_READ,
         NULL,
@@ -404,7 +415,7 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
     DWORD byteNum;
     char filePath[MAX_PATH*2];
 
-    writeStringToFile(outFile,"<!DOCTYPE html>\n<html>\n<head>\n<style>");
+    writeStringToFile(outFile,"<!DOCTYPE html>\n<html>\n<head>\n<style>\n");
     writeFileDataToFile( outFile,styleFile );
     writeStringToFile(outFile,"\n</style>\n<script>\n");
 
@@ -421,6 +432,7 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
     writeFileDataToFile( outFile,importDataFile );
     writeFileDataToFile( outFile,delayImportDataFile);
     writeFileDataToFile( outFile,exportDataFile );
+    writeFileDataToFile( outFile,relocationDataFile );
     writeFileDataToFile( outFile,scriptFile );
 
     writeStringToFile(outFile,"\n</script>\n<head>\n<body>\n</body>\n</html>");
@@ -429,6 +441,7 @@ void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
     CloseHandle( importDataFile );
     CloseHandle( delayImportDataFile );
     CloseHandle( exportDataFile );
+    CloseHandle( relocationDataFile );
     CloseHandle( scriptFile );
     CloseHandle( styleFile );
     CloseHandle( outFile );

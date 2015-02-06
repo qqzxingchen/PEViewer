@@ -136,13 +136,18 @@ window.onload = function (){
 	    tableContainer.appendChild(document.createElement('br'));
 	}
 	if (PEDelayImportData.length != 0) {
-	    showImportData(PEDelayImportData, tableContainer,"延迟导入表");
+	    showImportData(PEDelayImportData,tableContainer,"延迟导入表");
 	    tableContainer.appendChild(document.createElement('br'));
 	    tableContainer.appendChild(document.createElement('br'));
 	}
 	if (PEExportData.length != 0)
 	{
 	    showExportData(PEExportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	if (PERelocationData.length != 0) {
+	    showRelocationData(PERelocationData, tableContainer);
 	    tableContainer.appendChild(document.createElement('br'));
 	    tableContainer.appendChild(document.createElement('br'));
 	}
@@ -349,6 +354,63 @@ function showExportData(data, container) {
                 str = '0x ' + parseInt(str, 10).toFormatString(16);
             }
             row.insertCell().appendChild(document.createTextNode(str));
+        }
+    }
+}
+
+function showRelocationData(data, container)
+{
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+    var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+    table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode('重定位表'));
+
+    container.appendChild(table);
+    table.appendChild(caption);
+    table.appendChild(tbody);
+
+    var row,cell;
+    var str;
+    var value;
+    var oneLineDataNumber = 5;
+
+    for (var i = 0 ; i < data.length ; i++) {
+        str = '';
+        str += '页基址RVA：0x ' + parseInt(data[i]['BaseAddrRVA'],10).toFormatString(16);
+        str += '<span>';
+        str += '重定位块大小：0x ' + parseInt(data[i]['SizeOfBlock'], 10).toFormatString(16);
+        str += '</span>';
+        str += '<span><span><span>'
+        str += '表格中数据的规则：  重定位信息   (VA所指向地址的长度)   RVA';
+        str += '</span></span></span>'
+
+        cell = tbody.insertRow().insertCell()
+        cell.colSpan = oneLineDataNumber;
+        cell.innerHTML = str;
+
+        for (var j = 0 ; j < data[i]['DataArray'].length ; j++) {
+
+            str = '0x ' + parseInt(data[i]['DataArray'][j]['value'], 10).toFormatString(16);
+            str += '<span>';
+            switch(data[i]['DataArray'][j]['type']){
+                case 0: str += '(对齐)';break;
+                case 3: str += '(32位)'; break;
+                case 10: str += '(64位)'; break;
+            }
+            str += '</span>';
+            str += '<span>';
+            str += '0x ' + parseInt(data[i]['BaseAddrRVA'] + data[i]['DataArray'][j]['value'], 10).toFormatString(16);
+            str += '</span>';
+
+            if (j % oneLineDataNumber == 0)
+                row = tbody.insertRow();
+
+            cell = row.insertCell();
+            cell.width = 100/oneLineDataNumber + '%';
+            cell.innerHTML = str;
         }
     }
 }
