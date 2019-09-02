@@ -4,18 +4,18 @@
 #include <Windows.h>
 
 
-// ÏòÎÄ¼þ¾ä±úËùÖ¸ÏòµÄÎÄ¼þÖÐÐ´Èën¸ö×Ö·û£¨ÒªÇóÒÔ\0½áÎ²£©£¬ÒªÇóhFileÒÑ¾­´ò¿ªÇÒÒÑ¾­Ö¸ÏòÏëÒªÐ´µÄÎ»ÖÃ
+// å‘æ–‡ä»¶å¥æŸ„æ‰€æŒ‡å‘çš„æ–‡ä»¶ä¸­å†™å…¥nä¸ªå­—ç¬¦ï¼ˆè¦æ±‚ä»¥\0ç»“å°¾ï¼‰ï¼Œè¦æ±‚hFileå·²ç»æ‰“å¼€ä¸”å·²ç»æŒ‡å‘æƒ³è¦å†™çš„ä½ç½®
 inline void writeStringToFile( HANDLE hFile,char c[] ){
 	DWORD num;
 	WriteFile( hFile,c,strlen(c),(LPDWORD)(&num),NULL);
 }
 
-// Ð´ÈëÒ»¸ö¶ººÅ
+// å†™å…¥ä¸€ä¸ªé€—å·
 inline void writeSeparatorToFile( HANDLE hFile ){
 	writeStringToFile(hFile,",");
 }
 
-// ½«Ò»¸öÎÄ¼þÖÐµÄÄÚÈÝÐ´µ½ÁíÒ»¸öÎÄ¼þÖÐÈ¥
+// å°†ä¸€ä¸ªæ–‡ä»¶ä¸­çš„å†…å®¹å†™åˆ°å¦ä¸€ä¸ªæ–‡ä»¶ä¸­åŽ»
 inline void writeFileDataToFile( HANDLE fileTo,HANDLE fileFrom ){
     DWORD num;
     char str[1024];
@@ -30,19 +30,19 @@ inline void writeFileDataToFile( HANDLE fileTo,HANDLE fileFrom ){
 	}
 }
 
-// ¿í×Ö½Ú´®×ª»»Îª¶à×Ö½Ú´®
+// å®½å­—èŠ‚ä¸²è½¬æ¢ä¸ºå¤šå­—èŠ‚ä¸²
 inline void wCharToMChar( const TCHAR* wChar,char* mChar ){
     DWORD num=WideCharToMultiByte(CP_ACP,0,wChar,-1,NULL,0,NULL,0);  
     WideCharToMultiByte(CP_ACP,0,wChar,-1,mChar,num,NULL,0);  
 }
-// ¶à×Ö½Ú´®×ª»»Îª¿í×Ö½Ú´®
+// å¤šå­—èŠ‚ä¸²è½¬æ¢ä¸ºå®½å­—èŠ‚ä¸²
 inline void mCharToWChar( const char* mChar,TCHAR* wChar ){
 //    DWORD num = MultiByteToWideChar(CP_ACP,0,mChar,-1,wChar,0);
     MultiByteToWideChar(CP_ACP,0,mChar,-1,wChar,MAX_PATH);
 }
 
 
-// Èç¹ûÒ»¸ö´®ÖÐ´æÔÚ'\'£¬Ôò½«Æä×ª»»Îª'\\'
+// å¦‚æžœä¸€ä¸ªä¸²ä¸­å­˜åœ¨'\'ï¼Œåˆ™å°†å…¶è½¬æ¢ä¸º'\\'
 inline void addTranslate( char * str ){
     char temp[MAX_PATH*2];
     for ( int i = strlen(str)-1 ; i >= 0 ; i -- ){

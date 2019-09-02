@@ -14,7 +14,7 @@ bool PEDelayImportClass::writeToTempFile(  )
     HANDLE peFile = CreateFile(peBase->getPEFilePath(),GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
     if ( peFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("打开PE文件失败"));
+        wsprintf(ErrorString,TEXT("鎵撳紑PE鏂囦欢澶辫触"));
         return false;
     }
 
@@ -28,7 +28,7 @@ bool PEDelayImportClass::writeToTempFile(  )
         NULL );
     if ( tempFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("创建缓存文件失败"));
+        wsprintf(ErrorString,TEXT("鍒涘缓缂撳瓨鏂囦欢澶辫触"));
         return false;
     }
 
@@ -63,7 +63,7 @@ void PEDelayImportClass::writeDataToFile(HANDLE peFile, HANDLE hFile)
         if(delayImport.Name==0)
             break;
 
-        if(delayImport.Attributes==1)       // 表示IMAGE_DELAY_IMPORT_DESCRIPTOR结构中的地址都是RVA，否则为VA
+        if(delayImport.Attributes==1)       // 琛ㄧずIMAGE_DELAY_IMPORT_DESCRIPTOR缁撴瀯涓殑鍦板潃閮芥槸RVA锛屽惁鍒欎负VA
             RVA_SIGN=1;
         else
             RVA_SIGN=0;
@@ -101,7 +101,7 @@ void PEDelayImportClass::writeDataToFile(HANDLE peFile, HANDLE hFile)
             {
                 st.setBaseStr( StringTemplate::importTemplate );
                 st.exchange( "hint",( wsprintfA(temp,"%u",thunkData.u1.AddressOfData & 0xFFFF),temp ) );
-                st.exchange( "name","无函数名，按序号导出");
+                st.exchange( "name","鏃犲嚱鏁板悕锛屾寜搴忓彿瀵煎嚭");
                 st.getString( temp );
                 writeStringToFile( hFile,temp );
             }else{

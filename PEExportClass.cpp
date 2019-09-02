@@ -16,7 +16,7 @@ bool PEExportClass::writeToTempFile()
     HANDLE peFile = CreateFile(peBase->getPEFilePath(),GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
     if ( peFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("打开PE文件失败"));
+        wsprintf(ErrorString,TEXT("鎵撳紑PE鏂囦欢澶辫触"));
         return false;
     }
 
@@ -30,7 +30,7 @@ bool PEExportClass::writeToTempFile()
         NULL );
     if ( tempFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("创建缓存文件失败"));
+        wsprintf(ErrorString,TEXT("鍒涘缓缂撳瓨鏂囦欢澶辫触"));
         return false;
     }
 
@@ -90,7 +90,7 @@ void PEExportClass::writeDataToFile( HANDLE peFile, HANDLE hFile )
         st.setBaseStr( StringTemplate::exportTemplate );
         if(IDIndex==-1){
             st.exchange( "hint",(wsprintfA(temp,"%u",i),temp));            
-            st.exchange( "name","无函数名，按序号导出");
+            st.exchange( "name","鏃犲嚱鏁板悕锛屾寜搴忓彿瀵煎嚭");
         }else{
             st.exchange( "hint",( wsprintfA(temp,"%u",((PWORD)ID)[IDIndex]),temp ) );
 

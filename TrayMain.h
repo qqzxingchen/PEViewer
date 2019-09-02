@@ -4,26 +4,26 @@
 #include <windows.h>
 
 
-// ¾²Ì¬ID
-const UINT XC_ANALYSEPEFILE = WM_USER + 0x1;    // ×Ô¶¨ÒåÏûÏ¢£¬ÆäÖĞlParam(TCHAR *)ÖĞ´æ´¢×ÅPEÎÄ¼şµÄÂ·¾¶ĞÅÏ¢
+// é™æ€ID
+const UINT XC_ANALYSEPEFILE = WM_USER + 0x1;    // è‡ªå®šä¹‰æ¶ˆæ¯ï¼Œå…¶ä¸­lParam(TCHAR *)ä¸­å­˜å‚¨ç€PEæ–‡ä»¶çš„è·¯å¾„ä¿¡æ¯
 const UINT XC_DIALOG_SHOWHIDE = WM_USER + 0x2;  
 
-const UINT IDM_ITEM_QUIT = 0x2000;          // ÔÚÍĞÅÌÍ¼±êÉÏÓÒ¼üµã»÷ºóÏûÏ¢µÄID
-const UINT IDM_ITEM_INDEXSTART = 0x3000;    // ÍĞÅÌÓÒ¼ü²Ëµ¥ÉÏÃ¿ÏîµÄID¶¼ÊÇ IDM_ITEM_INDEXSTART + index
+const UINT IDM_ITEM_QUIT = 0x2000;          // åœ¨æ‰˜ç›˜å›¾æ ‡ä¸Šå³é”®ç‚¹å‡»åæ¶ˆæ¯çš„ID
+const UINT IDM_ITEM_INDEXSTART = 0x3000;    // æ‰˜ç›˜å³é”®èœå•ä¸Šæ¯é¡¹çš„IDéƒ½æ˜¯ IDM_ITEM_INDEXSTART + index
 
-const UINT ID_HOTKEY_ALT_R = 0x4000;        // µ±°´ÏÂAlt¼ÓRÊ±
+const UINT ID_HOTKEY_ALT_R = 0x4000;        // å½“æŒ‰ä¸‹AltåŠ Ræ—¶
 
-const int OLDFILEMAXNUMBER = 10;            // Ã¿´Î³ÌĞòÔËĞĞÊ±¶ÁÈ¡config.txtÎÄ¼şÖĞÀúÊ·Êı¾İµÄ¸öÊı
+const int OLDFILEMAXNUMBER = 10;            // æ¯æ¬¡ç¨‹åºè¿è¡Œæ—¶è¯»å–config.txtæ–‡ä»¶ä¸­å†å²æ•°æ®çš„ä¸ªæ•°
 
 const int wndWidth = 300;
 const int wndHeight = 200;
 
 const TCHAR scriptFilePath[] = TEXT("resources\\script.js");
 const TCHAR styleFilePath[] = TEXT("resources\\style.css");
-const TCHAR histroyFilePath[] = TEXT("resources\\histroy.txt");   // ¸ÃÎÄ¼şÊÇÓÃÀ´´æ´¢ÀúÊ·²éÑ¯¼ÇÂ¼µÄ
+const TCHAR histroyFilePath[] = TEXT("resources\\histroy.txt");   // è¯¥æ–‡ä»¶æ˜¯ç”¨æ¥å­˜å‚¨å†å²æŸ¥è¯¢è®°å½•çš„
 const TCHAR webbrowserCommandFilePath[] = TEXT("resources\\webbrowsercommand.txt");
 
-// º¯ÊıÉùÃ÷
+// å‡½æ•°å£°æ˜
 
 void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] );
 void showHtml( const TCHAR htmlFilePath[] );

@@ -10,17 +10,17 @@ const char PEOptionHeader::DllCharacterStr[16][35]=
 	"",
 	"",
 	"",
-	"",				//0-5Î»Ç¿ÖÆÎª0
-	"DLL¿ÉÒÔÔÚ¼ÓÔØÊ±±»ÖØ¶¨Î»",
-	"Ç¿ÖÆ´úÂëÊµÊ©ÍêÕûĞÔ¼ì²é",
-	"¸ÃÓ³Ïñ¼æÈİDEP",
-	"¿ÉÒÔ¸ôÀë£¬µ«²»¸ôÀë´ËÓ³Ïñ",
-	"Ó³Ïñ²»Ê¹ÓÃSEH",
-	"²»°ó¶¨Ó³Ïñ",
+	"",				//0-5ä½å¼ºåˆ¶ä¸º0
+	"DLLå¯ä»¥åœ¨åŠ è½½æ—¶è¢«é‡å®šä½",
+	"å¼ºåˆ¶ä»£ç å®æ–½å®Œæ•´æ€§æ£€æŸ¥",
+	"è¯¥æ˜ åƒå…¼å®¹DEP",
+	"å¯ä»¥éš”ç¦»ï¼Œä½†ä¸éš”ç¦»æ­¤æ˜ åƒ",
+	"æ˜ åƒä¸ä½¿ç”¨SEH",
+	"ä¸ç»‘å®šæ˜ åƒ",
 	"",
-	"¸ÃÓ³ÏñÎªWDM driver",
+	"è¯¥æ˜ åƒä¸ºWDM driver",
 	"",
-	"¿ÉÓÃÓÚÖÕ¶Ë·şÎñÆ÷"
+	"å¯ç”¨äºç»ˆç«¯æœåŠ¡å™¨"
 };
 
 
@@ -36,12 +36,12 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	char temp[1024];
 	char retu[1024];
 
-	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NTÀ©Õ¹Í·',value:[");
+	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NTæ‰©å±•å¤´',value:[");
 
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","Magic" );
     st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.Magic),temp ) );
-	st.exchange( "desc","Ä§Êõ×Ö£¬ËµÃ÷ÎÄ¼şµÄÀàĞÍ(107H == ROM ¾µÏñ£»10BH == PE32£»20BH == PE64)" );
+	st.exchange( "desc","é­”æœ¯å­—ï¼Œè¯´æ˜æ–‡ä»¶çš„ç±»å‹(107H == ROM é•œåƒï¼›10BH == PE32ï¼›20BH == PE64)" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.Magic) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -50,7 +50,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorLinkerVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorLinkerVersion),temp ) );
-	st.exchange( "desc","Á´½ÓÆ÷Ö÷°æ±¾ºÅ" );
+	st.exchange( "desc","é“¾æ¥å™¨ä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorLinkerVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -59,7 +59,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorLinkerVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorLinkerVersion),temp ) );
-	st.exchange( "desc","Á´½ÓÆ÷¸±°æ±¾ºÅ" );
+	st.exchange( "desc","é“¾æ¥å™¨å‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorLinkerVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -68,7 +68,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfCode" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfCode),temp ) );
-	st.exchange( "desc","ËùÓĞº¬´úÂëµÄ½ÚµÄ×Ü´óĞ¡£¨»ùÓÚÎÄ¼ş¶ÔÆë£©" );
+	st.exchange( "desc","æ‰€æœ‰å«ä»£ç çš„èŠ‚çš„æ€»å¤§å°ï¼ˆåŸºäºæ–‡ä»¶å¯¹é½ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfCode) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -77,7 +77,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfInitializedData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfInitializedData),temp ) );
-	st.exchange( "desc","ËùÓĞº¬ÒÑ³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡" );
+	st.exchange( "desc","æ‰€æœ‰å«å·²åˆå§‹åŒ–æ•°æ®çš„èŠ‚çš„æ€»å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfInitializedData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -86,7 +86,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfUninitializedData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfUninitializedData),temp ) );
-	st.exchange( "desc","ËùÓĞº¬Î´³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡£¨ÔÚÎÄ¼şÖĞ²»Õ¼ÓÃ¿Õ¼ä£¬µ«ÊÇÔÚ±»¼ÓÔØµ½ÄÚ´æÖ®ºó£¬PE¼ÓÔØ³ÌĞò½«»áÎªÕâĞ©Êı¾İ·ÖÅäÊÊµ±µÄ¿Õ¼ä£©" );
+	st.exchange( "desc","æ‰€æœ‰å«æœªåˆå§‹åŒ–æ•°æ®çš„èŠ‚çš„æ€»å¤§å°ï¼ˆåœ¨æ–‡ä»¶ä¸­ä¸å ç”¨ç©ºé—´ï¼Œä½†æ˜¯åœ¨è¢«åŠ è½½åˆ°å†…å­˜ä¹‹åï¼ŒPEåŠ è½½ç¨‹åºå°†ä¼šä¸ºè¿™äº›æ•°æ®åˆ†é…é€‚å½“çš„ç©ºé—´ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfUninitializedData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -95,7 +95,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","AddressOfEntryPoint" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.AddressOfEntryPoint),temp ) );
-	st.exchange( "desc","³ÌĞòÖ´ĞĞÈë¿ÚRVA£¨¼ÇÂ¼ÁËÆô¶¯´úÂë¾àÀë¸ÃPE¼ÓÔØºóµÄÆğÊ¼Î»ÖÃµ½µ×¶àÉÙ¸ö×Ö½Ú¡£¶ÔÓÚ³ÌĞòÓ³Ïñ£¬ËüÊÇÆô¶¯µØÖ·£»¶ÔÓÚÉè±¸Çı¶¯³ÌĞò£¬ËüÊÇ³õÊ¼»¯º¯ÊıµÄµØÖ·£»¶ÔÓÚDLLÀ´Ëµ£¬ËüÊÇ¿ÉÑ¡µÄ£¬Èç¹û²»´æÔÚĞèÒªÉèÖÃÎª0£©" );
+	st.exchange( "desc","ç¨‹åºæ‰§è¡Œå…¥å£RVAï¼ˆè®°å½•äº†å¯åŠ¨ä»£ç è·ç¦»è¯¥PEåŠ è½½åçš„èµ·å§‹ä½ç½®åˆ°åº•å¤šå°‘ä¸ªå­—èŠ‚ã€‚å¯¹äºç¨‹åºæ˜ åƒï¼Œå®ƒæ˜¯å¯åŠ¨åœ°å€ï¼›å¯¹äºè®¾å¤‡é©±åŠ¨ç¨‹åºï¼Œå®ƒæ˜¯åˆå§‹åŒ–å‡½æ•°çš„åœ°å€ï¼›å¯¹äºDLLæ¥è¯´ï¼Œå®ƒæ˜¯å¯é€‰çš„ï¼Œå¦‚æœä¸å­˜åœ¨éœ€è¦è®¾ç½®ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.AddressOfEntryPoint) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -104,7 +104,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","BaseOfCode" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.BaseOfCode),temp ) );
-	st.exchange( "desc","´úÂëµÄ½ÚµÄÆğÊ¼RVA£¨±íÊ¾Ó³Ïñ±»¼ÓÔØµ½ÄÚ´æÖĞºó£¬´úÂë½ÚµÄ¿ªÍ·Ïà¶ÔÓÚÓ³Ïñ»ùÖ·µÄÆ«ÒÆµØÖ·£©" );
+	st.exchange( "desc","ä»£ç çš„èŠ‚çš„èµ·å§‹RVAï¼ˆè¡¨ç¤ºæ˜ åƒè¢«åŠ è½½åˆ°å†…å­˜ä¸­åï¼Œä»£ç èŠ‚çš„å¼€å¤´ç›¸å¯¹äºæ˜ åƒåŸºå€çš„åç§»åœ°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.BaseOfCode) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -113,7 +113,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","BaseOfData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.BaseOfData),temp ) );
-	st.exchange( "desc","Êı¾İµÄ½ÚµÄÆğÊ¼RVA£¨±íÊ¾Ó³Ïñ±»¼ÓÔØµ½ÄÚ´æÖĞºó£¬Êı¾İ½ÚµÄ¿ªÍ·Ïà¶ÔÓÚÓ³Ïñ»ùÖ·µÄÆ«ÒÆµØÖ·£©" );
+	st.exchange( "desc","æ•°æ®çš„èŠ‚çš„èµ·å§‹RVAï¼ˆè¡¨ç¤ºæ˜ åƒè¢«åŠ è½½åˆ°å†…å­˜ä¸­åï¼Œæ•°æ®èŠ‚çš„å¼€å¤´ç›¸å¯¹äºæ˜ åƒåŸºå€çš„åç§»åœ°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.BaseOfData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -122,7 +122,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","ImageBase" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.ImageBase),temp ) );
-	st.exchange( "desc","PEÓ³ÏñµÄÓÅÏÈ×°ÈëµØÖ·£¨EXEÎÄ¼ş×ÜÊÇ¿ÉÒÔÒÔÕâ¸öÎ»ÖÃ×°Èë£»µ«ÊÇÈç¹ûÒ»¸ö³ÌĞòÒıÈëÁË¶à¸öDLLÎÄ¼ş£¬ÔòDLLÊµ¼Ê×°ÈëµØÖ·Óë¸ÃÖµ¿ÉÄÜ¾Í»á²»Í¬£»¸ÃÖµ±ØĞëÊÇ64KµÄÕûÊı±¶£©" );
+	st.exchange( "desc","PEæ˜ åƒçš„ä¼˜å…ˆè£…å…¥åœ°å€ï¼ˆEXEæ–‡ä»¶æ€»æ˜¯å¯ä»¥ä»¥è¿™ä¸ªä½ç½®è£…å…¥ï¼›ä½†æ˜¯å¦‚æœä¸€ä¸ªç¨‹åºå¼•å…¥äº†å¤šä¸ªDLLæ–‡ä»¶ï¼Œåˆ™DLLå®é™…è£…å…¥åœ°å€ä¸è¯¥å€¼å¯èƒ½å°±ä¼šä¸åŒï¼›è¯¥å€¼å¿…é¡»æ˜¯64Kçš„æ•´æ•°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.ImageBase) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -131,7 +131,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SectionAlignment" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SectionAlignment),temp ) );
-	st.exchange( "desc","ÄÚ´æÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È" );
+	st.exchange( "desc","å†…å­˜ä¸­çš„èŠ‚çš„å¯¹é½ç²’åº¦" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SectionAlignment) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -140,7 +140,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","FileAlignment" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.FileAlignment),temp ) );
-	st.exchange( "desc","ÎÄ¼şÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È" );
+	st.exchange( "desc","æ–‡ä»¶ä¸­çš„èŠ‚çš„å¯¹é½ç²’åº¦" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.FileAlignment) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -149,7 +149,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorOperatingSystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorOperatingSystemVersion),temp ) );
-	st.exchange( "desc","²Ù×÷ÏµÍ³Ö÷°æ±¾ºÅ" );
+	st.exchange( "desc","æ“ä½œç³»ç»Ÿä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorOperatingSystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -158,7 +158,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorOperatingSystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorOperatingSystemVersion),temp ) );
-	st.exchange( "desc","²Ù×÷ÏµÍ³¸±°æ±¾ºÅ" );
+	st.exchange( "desc","æ“ä½œç³»ç»Ÿå‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorOperatingSystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -167,7 +167,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorImageVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorImageVersion),temp ) );
-	st.exchange( "desc","¸ÃPEÖ÷°æ±¾ºÅ" );
+	st.exchange( "desc","è¯¥PEä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorImageVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -176,7 +176,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorImageVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorImageVersion),temp ) );
-	st.exchange( "desc","¸ÃPE¸±°æ±¾ºÅ" );
+	st.exchange( "desc","è¯¥PEå‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorImageVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -185,7 +185,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorSubsystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorSubsystemVersion),temp ) );
-	st.exchange( "desc","ËùĞè×ÓÏµÍ³µÄÖ÷°æ±¾ºÅ" );
+	st.exchange( "desc","æ‰€éœ€å­ç³»ç»Ÿçš„ä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorSubsystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -194,7 +194,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorSubsystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorSubsystemVersion),temp ) );
-	st.exchange( "desc","ËùĞè×ÓÏµÍ³µÄ¸±°æ±¾ºÅ" );
+	st.exchange( "desc","æ‰€éœ€å­ç³»ç»Ÿçš„å‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorSubsystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -203,7 +203,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","Win32VersionValue" );
 	st.exchange( "value", "\'\'" );
-	st.exchange( "desc","×ÓÏµÍ³°æ±¾µÄÖµ£¨Î´ÓÃ£¬±ØĞëÉèÖÃÎª0£©" );
+	st.exchange( "desc","å­ç³»ç»Ÿç‰ˆæœ¬çš„å€¼ï¼ˆæœªç”¨ï¼Œå¿…é¡»è®¾ç½®ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.Win32VersionValue) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -212,7 +212,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfImage" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfImage),temp ) );
-	st.exchange( "desc","ÄÚ´æÖĞÕû¸öPEµÄÓ³Ïñ³ß´ç£¨¿ÉÒÔ±ÈÊµ¼ÊµÄÖµ´ó£¬µ«²»ÄÜ±ÈËüĞ¡£¬ÇÒ±ØĞë±£Ö¤ËüÊÇSectionAlignmentµÄÕûÊı±¶£©" );
+	st.exchange( "desc","å†…å­˜ä¸­æ•´ä¸ªPEçš„æ˜ åƒå°ºå¯¸ï¼ˆå¯ä»¥æ¯”å®é™…çš„å€¼å¤§ï¼Œä½†ä¸èƒ½æ¯”å®ƒå°ï¼Œä¸”å¿…é¡»ä¿è¯å®ƒæ˜¯SectionAlignmentçš„æ•´æ•°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfImage) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -221,7 +221,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeaders" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfHeaders),temp ) );
-	st.exchange( "desc","ËùÓĞÍ·+½Ú±í°´ÕÕÎÄ¼ş¶ÔÆëÁ£¶È¶ÔÆëºóµÄ´óĞ¡" );
+	st.exchange( "desc","æ‰€æœ‰å¤´+èŠ‚è¡¨æŒ‰ç…§æ–‡ä»¶å¯¹é½ç²’åº¦å¯¹é½åçš„å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeaders) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -230,25 +230,25 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","CheckSum" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.CheckSum),temp ) );
-	st.exchange( "desc","Ğ£ÑéºÍ£¨´ó¶àÊıPEÎÄ¼şÖĞ£¬¸ÃÖµÊÇ0£»µ«ÔÚÒ»Ğ©ÄÚºËÄ£Ê½µÄÇı¶¯³ÌĞòºÍÏµÍ³DLLÖĞ£¬Ëü±ØĞë´æÔÚÇÒÓĞĞ§£©" );
+	st.exchange( "desc","æ ¡éªŒå’Œï¼ˆå¤§å¤šæ•°PEæ–‡ä»¶ä¸­ï¼Œè¯¥å€¼æ˜¯0ï¼›ä½†åœ¨ä¸€äº›å†…æ ¸æ¨¡å¼çš„é©±åŠ¨ç¨‹åºå’Œç³»ç»ŸDLLä¸­ï¼Œå®ƒå¿…é¡»å­˜åœ¨ä¸”æœ‰æ•ˆï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.CheckSum) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"Ö¸¶¨Ê¹ÓÃ½çÃæµÄ×ÓÏµÍ³£º" );
+	wsprintfA( temp,"æŒ‡å®šä½¿ç”¨ç•Œé¢çš„å­ç³»ç»Ÿï¼š" );
 	switch( optionHeader.Subsystem ){
-	case IMAGE_SUBSYSTEM_UNKNOWN            : wsprintfA( &temp[strlen(temp)],"Î´ÖªµÄ×ÓÏµÍ³" ); break;
-	case IMAGE_SUBSYSTEM_NATIVE             : wsprintfA( &temp[strlen(temp)],"Éè±¸Çı¶¯³ÌĞòºÍ Native Windows ½ø³Ì" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_GUI        : wsprintfA( &temp[strlen(temp)],"Windows Í¼ĞÎÓÃ»§½çÃæ" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_CUI        : wsprintfA( &temp[strlen(temp)],"Windows ×Ö·ûÄ£Ê½" ); break;
-	case IMAGE_SUBSYSTEM_POSIX_CUI          : wsprintfA( &temp[strlen(temp)],"POSIX×Ö·ûÄ£Ê½" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_CE_GUI     : wsprintfA( &temp[strlen(temp)],"Windows CE Í¼ĞÎ½çÃæ" ); break;
-	case IMAGE_SUBSYSTEM_EFI_APPLICATION    : wsprintfA( &temp[strlen(temp)],"¿ÉÀ©Õ¹¹Ì¼ş½Ó¿Ú£¨EFI£©Ó¦ÓÃ³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER    : wsprintfA( &temp[strlen(temp)],"´øÒıµ¼·şÎñµÄEFIÇı¶¯³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER : wsprintfA( &temp[strlen(temp)],"´øÔËĞĞÊ±·şÎñµÄEFIÇı¶¯³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_ROM            : wsprintfA( &temp[strlen(temp)],"EFI ROM ¾µÏñ" ); break;
+	case IMAGE_SUBSYSTEM_UNKNOWN            : wsprintfA( &temp[strlen(temp)],"æœªçŸ¥çš„å­ç³»ç»Ÿ" ); break;
+	case IMAGE_SUBSYSTEM_NATIVE             : wsprintfA( &temp[strlen(temp)],"è®¾å¤‡é©±åŠ¨ç¨‹åºå’Œ Native Windows è¿›ç¨‹" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_GUI        : wsprintfA( &temp[strlen(temp)],"Windows å›¾å½¢ç”¨æˆ·ç•Œé¢" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_CUI        : wsprintfA( &temp[strlen(temp)],"Windows å­—ç¬¦æ¨¡å¼" ); break;
+	case IMAGE_SUBSYSTEM_POSIX_CUI          : wsprintfA( &temp[strlen(temp)],"POSIXå­—ç¬¦æ¨¡å¼" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_CE_GUI     : wsprintfA( &temp[strlen(temp)],"Windows CE å›¾å½¢ç•Œé¢" ); break;
+	case IMAGE_SUBSYSTEM_EFI_APPLICATION    : wsprintfA( &temp[strlen(temp)],"å¯æ‰©å±•å›ºä»¶æ¥å£ï¼ˆEFIï¼‰åº”ç”¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER    : wsprintfA( &temp[strlen(temp)],"å¸¦å¼•å¯¼æœåŠ¡çš„EFIé©±åŠ¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER : wsprintfA( &temp[strlen(temp)],"å¸¦è¿è¡Œæ—¶æœåŠ¡çš„EFIé©±åŠ¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_ROM            : wsprintfA( &temp[strlen(temp)],"EFI ROM é•œåƒ" ); break;
 	case IMAGE_SUBSYSTEM_XBOX               : wsprintfA( &temp[strlen(temp)],"XBOX" ); break;
 	}
 	st.exchange( "desc",temp );
@@ -260,15 +260,15 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"DLLÎÄ¼şÌØĞÔ£¨²»ÊÇÕë¶ÔDLLÎÄ¼şµÄ£¬¶øÊÇÕë¶ÔËùÓĞPEÎÄ¼şµÄ£©" );
+	wsprintfA( temp,"DLLæ–‡ä»¶ç‰¹æ€§ï¼ˆä¸æ˜¯é’ˆå¯¹DLLæ–‡ä»¶çš„ï¼Œè€Œæ˜¯é’ˆå¯¹æ‰€æœ‰PEæ–‡ä»¶çš„ï¼‰" );
 	bool sign = false;
 	for ( int i = 0 ; i < 16 ; i ++ ){	
 		if ( ( ( 1 << i) & optionHeader.DllCharacteristics) == 0 )
 			continue;
 		if ( sign ){
-			wsprintfA( &temp[strlen(temp)],"¡¢%s",DllCharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ã€%s",DllCharacterStr[i] );
 		}else{
-			wsprintfA( &temp[strlen(temp)],"£º%s",DllCharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ï¼š%s",DllCharacterStr[i] );
 			sign = true;
 		}
 	}
@@ -283,7 +283,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfStackReserve" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfStackReserve),temp ) );
-	st.exchange( "desc","³õÊ¼»¯µÄÕ»´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–çš„æ ˆå¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfStackReserve) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -292,7 +292,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfStackCommit" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfStackCommit),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄÕ»´óĞ¡µÄÕ»´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶å®é™…æäº¤çš„æ ˆå¤§å°çš„æ ˆå¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfStackCommit) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -301,7 +301,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeapReserve" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfHeapReserve),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±±£ÁôµÄ¶Ñ´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶ä¿ç•™çš„å †å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeapReserve) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -310,7 +310,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeapCommit" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfHeapCommit),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄ¶Ñ´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶å®é™…æäº¤çš„å †å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeapCommit) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -319,7 +319,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","LoaderFlags" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.LoaderFlags),temp ) );
-	st.exchange( "desc","¼ÓÔØ±êÖ¾" );
+	st.exchange( "desc","åŠ è½½æ ‡å¿—" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.LoaderFlags) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -328,7 +328,7 @@ void PEOptionHeader32::writeDataToFile(  HANDLE tempFile  )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfRvaAndSizes" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.NumberOfRvaAndSizes),temp ) );
-	st.exchange( "desc","Êı¾İÄ¿Â¼½á¹¹µÄÏîÄ¿ÊıÁ¿" );
+	st.exchange( "desc","æ•°æ®ç›®å½•ç»“æ„çš„é¡¹ç›®æ•°é‡" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.NumberOfRvaAndSizes) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -346,12 +346,12 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	char temp[1024];
 	char retu[1024];
 
-	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NTÀ©Õ¹Í·',value:[");
+	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NTæ‰©å±•å¤´',value:[");
 
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","Magic" );
     st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.Magic),temp ) );
-	st.exchange( "desc","Ä§Êõ×Ö£¬ËµÃ÷ÎÄ¼şµÄÀàĞÍ(107H == ROM ¾µÏñ£»10BH == PE32£»20BH == PE64)" );
+	st.exchange( "desc","é­”æœ¯å­—ï¼Œè¯´æ˜æ–‡ä»¶çš„ç±»å‹(107H == ROM é•œåƒï¼›10BH == PE32ï¼›20BH == PE64)" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.Magic) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -360,7 +360,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorLinkerVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorLinkerVersion),temp ) );
-	st.exchange( "desc","Á´½ÓÆ÷Ö÷°æ±¾ºÅ" );
+	st.exchange( "desc","é“¾æ¥å™¨ä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorLinkerVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -369,7 +369,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorLinkerVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorLinkerVersion),temp ) );
-	st.exchange( "desc","Á´½ÓÆ÷¸±°æ±¾ºÅ" );
+	st.exchange( "desc","é“¾æ¥å™¨å‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorLinkerVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -378,7 +378,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfCode" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfCode),temp ) );
-	st.exchange( "desc","ËùÓĞº¬´úÂëµÄ½ÚµÄ×Ü´óĞ¡£¨»ùÓÚÎÄ¼ş¶ÔÆë£©" );
+	st.exchange( "desc","æ‰€æœ‰å«ä»£ç çš„èŠ‚çš„æ€»å¤§å°ï¼ˆåŸºäºæ–‡ä»¶å¯¹é½ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfCode) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -387,7 +387,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfInitializedData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfInitializedData),temp ) );
-	st.exchange( "desc","ËùÓĞº¬ÒÑ³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡" );
+	st.exchange( "desc","æ‰€æœ‰å«å·²åˆå§‹åŒ–æ•°æ®çš„èŠ‚çš„æ€»å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfInitializedData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -396,7 +396,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfUninitializedData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfUninitializedData),temp ) );
-	st.exchange( "desc","ËùÓĞº¬Î´³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡£¨ÔÚÎÄ¼şÖĞ²»Õ¼ÓÃ¿Õ¼ä£¬µ«ÊÇÔÚ±»¼ÓÔØµ½ÄÚ´æÖ®ºó£¬PE¼ÓÔØ³ÌĞò½«»áÎªÕâĞ©Êı¾İ·ÖÅäÊÊµ±µÄ¿Õ¼ä£©" );
+	st.exchange( "desc","æ‰€æœ‰å«æœªåˆå§‹åŒ–æ•°æ®çš„èŠ‚çš„æ€»å¤§å°ï¼ˆåœ¨æ–‡ä»¶ä¸­ä¸å ç”¨ç©ºé—´ï¼Œä½†æ˜¯åœ¨è¢«åŠ è½½åˆ°å†…å­˜ä¹‹åï¼ŒPEåŠ è½½ç¨‹åºå°†ä¼šä¸ºè¿™äº›æ•°æ®åˆ†é…é€‚å½“çš„ç©ºé—´ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfUninitializedData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -405,7 +405,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","AddressOfEntryPoint" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.AddressOfEntryPoint),temp ) );
-	st.exchange( "desc","³ÌĞòÖ´ĞĞÈë¿ÚRVA£¨¼ÇÂ¼ÁËÆô¶¯´úÂë¾àÀë¸ÃPE¼ÓÔØºóµÄÆğÊ¼Î»ÖÃµ½µ×¶àÉÙ¸ö×Ö½Ú¡£¶ÔÓÚ³ÌĞòÓ³Ïñ£¬ËüÊÇÆô¶¯µØÖ·£»¶ÔÓÚÉè±¸Çı¶¯³ÌĞò£¬ËüÊÇ³õÊ¼»¯º¯ÊıµÄµØÖ·£»¶ÔÓÚDLLÀ´Ëµ£¬ËüÊÇ¿ÉÑ¡µÄ£¬Èç¹û²»´æÔÚĞèÒªÉèÖÃÎª0£©" );
+	st.exchange( "desc","ç¨‹åºæ‰§è¡Œå…¥å£RVAï¼ˆè®°å½•äº†å¯åŠ¨ä»£ç è·ç¦»è¯¥PEåŠ è½½åçš„èµ·å§‹ä½ç½®åˆ°åº•å¤šå°‘ä¸ªå­—èŠ‚ã€‚å¯¹äºç¨‹åºæ˜ åƒï¼Œå®ƒæ˜¯å¯åŠ¨åœ°å€ï¼›å¯¹äºè®¾å¤‡é©±åŠ¨ç¨‹åºï¼Œå®ƒæ˜¯åˆå§‹åŒ–å‡½æ•°çš„åœ°å€ï¼›å¯¹äºDLLæ¥è¯´ï¼Œå®ƒæ˜¯å¯é€‰çš„ï¼Œå¦‚æœä¸å­˜åœ¨éœ€è¦è®¾ç½®ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.AddressOfEntryPoint) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -414,7 +414,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","BaseOfCode" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.BaseOfCode),temp ) );
-	st.exchange( "desc","´úÂëµÄ½ÚµÄÆğÊ¼RVA£¨±íÊ¾Ó³Ïñ±»¼ÓÔØµ½ÄÚ´æÖĞºó£¬´úÂë½ÚµÄ¿ªÍ·Ïà¶ÔÓÚÓ³Ïñ»ùÖ·µÄÆ«ÒÆµØÖ·£©" );
+	st.exchange( "desc","ä»£ç çš„èŠ‚çš„èµ·å§‹RVAï¼ˆè¡¨ç¤ºæ˜ åƒè¢«åŠ è½½åˆ°å†…å­˜ä¸­åï¼Œä»£ç èŠ‚çš„å¼€å¤´ç›¸å¯¹äºæ˜ åƒåŸºå€çš„åç§»åœ°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.BaseOfCode) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -423,7 +423,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","ImageBase" );
 	st.exchange( "value", ( wsprintfA( temp,"%I64u",optionHeader.ImageBase),temp ) );
-	st.exchange( "desc","PEÓ³ÏñµÄÓÅÏÈ×°ÈëµØÖ·£¨EXEÎÄ¼ş×ÜÊÇ¿ÉÒÔÒÔÕâ¸öÎ»ÖÃ×°Èë£»µ«ÊÇÈç¹ûÒ»¸ö³ÌĞòÒıÈëÁË¶à¸öDLLÎÄ¼ş£¬ÔòDLLÊµ¼Ê×°ÈëµØÖ·Óë¸ÃÖµ¿ÉÄÜ¾Í»á²»Í¬£»¸ÃÖµ±ØĞëÊÇ64KµÄÕûÊı±¶£©" );
+	st.exchange( "desc","PEæ˜ åƒçš„ä¼˜å…ˆè£…å…¥åœ°å€ï¼ˆEXEæ–‡ä»¶æ€»æ˜¯å¯ä»¥ä»¥è¿™ä¸ªä½ç½®è£…å…¥ï¼›ä½†æ˜¯å¦‚æœä¸€ä¸ªç¨‹åºå¼•å…¥äº†å¤šä¸ªDLLæ–‡ä»¶ï¼Œåˆ™DLLå®é™…è£…å…¥åœ°å€ä¸è¯¥å€¼å¯èƒ½å°±ä¼šä¸åŒï¼›è¯¥å€¼å¿…é¡»æ˜¯64Kçš„æ•´æ•°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.ImageBase) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -432,7 +432,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SectionAlignment" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SectionAlignment),temp ) );
-	st.exchange( "desc","ÄÚ´æÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È" );
+	st.exchange( "desc","å†…å­˜ä¸­çš„èŠ‚çš„å¯¹é½ç²’åº¦" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SectionAlignment) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -441,7 +441,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","FileAlignment" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.FileAlignment),temp ) );
-	st.exchange( "desc","ÎÄ¼şÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È" );
+	st.exchange( "desc","æ–‡ä»¶ä¸­çš„èŠ‚çš„å¯¹é½ç²’åº¦" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.FileAlignment) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -450,7 +450,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorOperatingSystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorOperatingSystemVersion),temp ) );
-	st.exchange( "desc","²Ù×÷ÏµÍ³Ö÷°æ±¾ºÅ" );
+	st.exchange( "desc","æ“ä½œç³»ç»Ÿä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorOperatingSystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -459,7 +459,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorOperatingSystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorOperatingSystemVersion),temp ) );
-	st.exchange( "desc","²Ù×÷ÏµÍ³¸±°æ±¾ºÅ" );
+	st.exchange( "desc","æ“ä½œç³»ç»Ÿå‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorOperatingSystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -468,7 +468,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorImageVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorImageVersion),temp ) );
-	st.exchange( "desc","¸ÃPEÖ÷°æ±¾ºÅ" );
+	st.exchange( "desc","è¯¥PEä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorImageVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -477,7 +477,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorImageVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorImageVersion),temp ) );
-	st.exchange( "desc","¸ÃPE¸±°æ±¾ºÅ" );
+	st.exchange( "desc","è¯¥PEå‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorImageVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -486,7 +486,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MajorSubsystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MajorSubsystemVersion),temp ) );
-	st.exchange( "desc","ËùĞè×ÓÏµÍ³µÄÖ÷°æ±¾ºÅ" );
+	st.exchange( "desc","æ‰€éœ€å­ç³»ç»Ÿçš„ä¸»ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MajorSubsystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -495,7 +495,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","MinorSubsystemVersion" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.MinorSubsystemVersion),temp ) );
-	st.exchange( "desc","ËùĞè×ÓÏµÍ³µÄ¸±°æ±¾ºÅ" );
+	st.exchange( "desc","æ‰€éœ€å­ç³»ç»Ÿçš„å‰¯ç‰ˆæœ¬å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.MinorSubsystemVersion) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -504,7 +504,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","Win32VersionValue" );
 	st.exchange( "value", "\'\'" );
-	st.exchange( "desc","×ÓÏµÍ³°æ±¾µÄÖµ£¨Î´ÓÃ£¬±ØĞëÉèÖÃÎª0£©" );
+	st.exchange( "desc","å­ç³»ç»Ÿç‰ˆæœ¬çš„å€¼ï¼ˆæœªç”¨ï¼Œå¿…é¡»è®¾ç½®ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.Win32VersionValue) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -513,7 +513,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfImage" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfImage),temp ) );
-	st.exchange( "desc","ÄÚ´æÖĞÕû¸öPEµÄÓ³Ïñ³ß´ç£¨¿ÉÒÔ±ÈÊµ¼ÊµÄÖµ´ó£¬µ«²»ÄÜ±ÈËüĞ¡£¬ÇÒ±ØĞë±£Ö¤ËüÊÇSectionAlignmentµÄÕûÊı±¶£©" );
+	st.exchange( "desc","å†…å­˜ä¸­æ•´ä¸ªPEçš„æ˜ åƒå°ºå¯¸ï¼ˆå¯ä»¥æ¯”å®é™…çš„å€¼å¤§ï¼Œä½†ä¸èƒ½æ¯”å®ƒå°ï¼Œä¸”å¿…é¡»ä¿è¯å®ƒæ˜¯SectionAlignmentçš„æ•´æ•°å€ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfImage) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -522,7 +522,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeaders" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.SizeOfHeaders),temp ) );
-	st.exchange( "desc","ËùÓĞÍ·+½Ú±í°´ÕÕÎÄ¼ş¶ÔÆëÁ£¶È¶ÔÆëºóµÄ´óĞ¡" );
+	st.exchange( "desc","æ‰€æœ‰å¤´+èŠ‚è¡¨æŒ‰ç…§æ–‡ä»¶å¯¹é½ç²’åº¦å¯¹é½åçš„å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeaders) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -531,25 +531,25 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","CheckSum" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.CheckSum),temp ) );
-	st.exchange( "desc","Ğ£ÑéºÍ£¨´ó¶àÊıPEÎÄ¼şÖĞ£¬¸ÃÖµÊÇ0£»µ«ÔÚÒ»Ğ©ÄÚºËÄ£Ê½µÄÇı¶¯³ÌĞòºÍÏµÍ³DLLÖĞ£¬Ëü±ØĞë´æÔÚÇÒÓĞĞ§£©" );
+	st.exchange( "desc","æ ¡éªŒå’Œï¼ˆå¤§å¤šæ•°PEæ–‡ä»¶ä¸­ï¼Œè¯¥å€¼æ˜¯0ï¼›ä½†åœ¨ä¸€äº›å†…æ ¸æ¨¡å¼çš„é©±åŠ¨ç¨‹åºå’Œç³»ç»ŸDLLä¸­ï¼Œå®ƒå¿…é¡»å­˜åœ¨ä¸”æœ‰æ•ˆï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.CheckSum) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"Ö¸¶¨Ê¹ÓÃ½çÃæµÄ×ÓÏµÍ³£º" );
+	wsprintfA( temp,"æŒ‡å®šä½¿ç”¨ç•Œé¢çš„å­ç³»ç»Ÿï¼š" );
 	switch( optionHeader.Subsystem ){
-	case IMAGE_SUBSYSTEM_UNKNOWN            : wsprintfA( &temp[strlen(temp)],"Î´ÖªµÄ×ÓÏµÍ³" ); break;
-	case IMAGE_SUBSYSTEM_NATIVE             : wsprintfA( &temp[strlen(temp)],"Éè±¸Çı¶¯³ÌĞòºÍ Native Windows ½ø³Ì" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_GUI        : wsprintfA( &temp[strlen(temp)],"Windows Í¼ĞÎÓÃ»§½çÃæ" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_CUI        : wsprintfA( &temp[strlen(temp)],"Windows ×Ö·ûÄ£Ê½" ); break;
-	case IMAGE_SUBSYSTEM_POSIX_CUI          : wsprintfA( &temp[strlen(temp)],"POSIX×Ö·ûÄ£Ê½" ); break;
-	case IMAGE_SUBSYSTEM_WINDOWS_CE_GUI     : wsprintfA( &temp[strlen(temp)],"Windows CE Í¼ĞÎ½çÃæ" ); break;
-	case IMAGE_SUBSYSTEM_EFI_APPLICATION    : wsprintfA( &temp[strlen(temp)],"¿ÉÀ©Õ¹¹Ì¼ş½Ó¿Ú£¨EFI£©Ó¦ÓÃ³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER    : wsprintfA( &temp[strlen(temp)],"´øÒıµ¼·şÎñµÄEFIÇı¶¯³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER : wsprintfA( &temp[strlen(temp)],"´øÔËĞĞÊ±·şÎñµÄEFIÇı¶¯³ÌĞò" ); break;
-	case IMAGE_SUBSYSTEM_EFI_ROM            : wsprintfA( &temp[strlen(temp)],"EFI ROM ¾µÏñ" ); break;
+	case IMAGE_SUBSYSTEM_UNKNOWN            : wsprintfA( &temp[strlen(temp)],"æœªçŸ¥çš„å­ç³»ç»Ÿ" ); break;
+	case IMAGE_SUBSYSTEM_NATIVE             : wsprintfA( &temp[strlen(temp)],"è®¾å¤‡é©±åŠ¨ç¨‹åºå’Œ Native Windows è¿›ç¨‹" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_GUI        : wsprintfA( &temp[strlen(temp)],"Windows å›¾å½¢ç”¨æˆ·ç•Œé¢" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_CUI        : wsprintfA( &temp[strlen(temp)],"Windows å­—ç¬¦æ¨¡å¼" ); break;
+	case IMAGE_SUBSYSTEM_POSIX_CUI          : wsprintfA( &temp[strlen(temp)],"POSIXå­—ç¬¦æ¨¡å¼" ); break;
+	case IMAGE_SUBSYSTEM_WINDOWS_CE_GUI     : wsprintfA( &temp[strlen(temp)],"Windows CE å›¾å½¢ç•Œé¢" ); break;
+	case IMAGE_SUBSYSTEM_EFI_APPLICATION    : wsprintfA( &temp[strlen(temp)],"å¯æ‰©å±•å›ºä»¶æ¥å£ï¼ˆEFIï¼‰åº”ç”¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER    : wsprintfA( &temp[strlen(temp)],"å¸¦å¼•å¯¼æœåŠ¡çš„EFIé©±åŠ¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER : wsprintfA( &temp[strlen(temp)],"å¸¦è¿è¡Œæ—¶æœåŠ¡çš„EFIé©±åŠ¨ç¨‹åº" ); break;
+	case IMAGE_SUBSYSTEM_EFI_ROM            : wsprintfA( &temp[strlen(temp)],"EFI ROM é•œåƒ" ); break;
 	case IMAGE_SUBSYSTEM_XBOX               : wsprintfA( &temp[strlen(temp)],"XBOX" ); break;
 	}
 	st.exchange( "desc",temp );
@@ -561,15 +561,15 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"DLLÎÄ¼şÌØĞÔ£¨²»ÊÇÕë¶ÔDLLÎÄ¼şµÄ£¬¶øÊÇÕë¶ÔËùÓĞPEÎÄ¼şµÄ£©" );
+	wsprintfA( temp,"DLLæ–‡ä»¶ç‰¹æ€§ï¼ˆä¸æ˜¯é’ˆå¯¹DLLæ–‡ä»¶çš„ï¼Œè€Œæ˜¯é’ˆå¯¹æ‰€æœ‰PEæ–‡ä»¶çš„ï¼‰" );
 	bool sign = false;
 	for ( int i = 0 ; i < 16 ; i ++ ){	
 		if ( ( ( 1 << i) & optionHeader.DllCharacteristics) == 0 )
 			continue;
 		if ( sign ){
-			wsprintfA( &temp[strlen(temp)],"¡¢%s",DllCharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ã€%s",DllCharacterStr[i] );
 		}else{
-			wsprintfA( &temp[strlen(temp)],"£º%s",DllCharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ï¼š%s",DllCharacterStr[i] );
 			sign = true;
 		}
 	}
@@ -584,7 +584,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfStackReserve" );
 	st.exchange( "value", ( wsprintfA( temp,"%I64u",optionHeader.SizeOfStackReserve),temp ) );
-	st.exchange( "desc","³õÊ¼»¯µÄÕ»´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–çš„æ ˆå¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfStackReserve) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -593,7 +593,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfStackCommit" );
 	st.exchange( "value", ( wsprintfA( temp,"%I64u",optionHeader.SizeOfStackCommit),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄÕ»´óĞ¡µÄÕ»´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶å®é™…æäº¤çš„æ ˆå¤§å°çš„æ ˆå¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfStackCommit) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -602,7 +602,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeapReserve" );
 	st.exchange( "value", ( wsprintfA( temp,"%I64u",optionHeader.SizeOfHeapReserve),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±±£ÁôµÄ¶Ñ´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶ä¿ç•™çš„å †å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeapReserve) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -611,7 +611,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfHeapCommit" );
 	st.exchange( "value", ( wsprintfA( temp,"%I64u",optionHeader.SizeOfHeapCommit),temp ) );
-	st.exchange( "desc","³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄ¶Ñ´óĞ¡" );
+	st.exchange( "desc","åˆå§‹åŒ–æ—¶å®é™…æäº¤çš„å †å¤§å°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.SizeOfHeapCommit) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -620,7 +620,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","LoaderFlags" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.LoaderFlags),temp ) );
-	st.exchange( "desc","¼ÓÔØ±êÖ¾" );
+	st.exchange( "desc","åŠ è½½æ ‡å¿—" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.LoaderFlags) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -629,7 +629,7 @@ void PEOptionHeader64::writeDataToFile( HANDLE tempFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfRvaAndSizes" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",optionHeader.NumberOfRvaAndSizes),temp ) );
-	st.exchange( "desc","Êı¾İÄ¿Â¼½á¹¹µÄÏîÄ¿ÊıÁ¿" );
+	st.exchange( "desc","æ•°æ®ç›®å½•ç»“æ„çš„é¡¹ç›®æ•°é‡" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(optionHeader.NumberOfRvaAndSizes) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);

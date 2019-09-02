@@ -64,7 +64,7 @@ void writeOldFilePathDataIntoFile(
     }
 }
 
-// ·µ»ØÖµ£ºÈç¹ûÈ·Êµ²åÈëÁË£¬Ôò·µ»Øtrue£»Èç¹ûÒÑ¾­´æÔÚ£¬Ôò·µ»Øfalse
+// è¿”å›žå€¼ï¼šå¦‚æžœç¡®å®žæ’å…¥äº†ï¼Œåˆ™è¿”å›žtrueï¼›å¦‚æžœå·²ç»å­˜åœ¨ï¼Œåˆ™è¿”å›žfalse
 bool insertOneFilePath(
     TCHAR * pathDataT,
     char pathDataArray[][MAX_PATH])
@@ -86,7 +86,7 @@ bool insertOneFilePath(
 }
 
 
-// ÖØ½¨ÍÐÅÌÍ¼±êµÄÓÒ¼ü²Ëµ¥
+// é‡å»ºæ‰˜ç›˜å›¾æ ‡çš„å³é”®èœå•
 void recreateTrayMenu(HMENU * menu,char pathDataArray[][MAX_PATH]){
     if ( *menu != (HMENU)INVALID_HANDLE_VALUE ){
         DestroyMenu(*menu);
@@ -101,7 +101,7 @@ void recreateTrayMenu(HMENU * menu,char pathDataArray[][MAX_PATH]){
         AppendMenuA(*menu,MF_STRING, IDM_ITEM_INDEXSTART+index,szOldFilePath[index]);
         index ++;
     }
-    AppendMenu(*menu,MF_STRING, IDM_ITEM_QUIT,TEXT("ÍË³ö"));
+    AppendMenu(*menu,MF_STRING, IDM_ITEM_QUIT,TEXT("é€€å‡º"));
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -153,11 +153,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    static UINT WM_TASKBARCREATED = RegisterWindowMessage(TEXT("TaskbarCreated"));  // ²»ÒªÐÞ¸ÄTaskbarCreated£¬ÕâÊÇÏµÍ³ÈÎÎñÀ¸×Ô¶¨ÒåµÄÏûÏ¢
+    static UINT WM_TASKBARCREATED = RegisterWindowMessage(TEXT("TaskbarCreated"));  // ä¸è¦ä¿®æ”¹TaskbarCreatedï¼Œè¿™æ˜¯ç³»ç»Ÿä»»åŠ¡æ è‡ªå®šä¹‰çš„æ¶ˆæ¯
 
-    static TCHAR szFileName[MAX_PATH] = TEXT("");  // ÓÃÀ´´æ´¢exeÎÄ¼þÃû
+    static TCHAR szFileName[MAX_PATH] = TEXT("");  // ç”¨æ¥å­˜å‚¨exeæ–‡ä»¶å
 
-    static HMENU hMenuPopup;            // ÓÒ¼ü²Ëµ¥
+    static HMENU hMenuPopup;            // å³é”®èœå•
     static NOTIFYICONDATA nid;
     HANDLE histroyFileHandle;
     HDC hdc;
@@ -195,12 +195,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         SendMessage(hwnd,WM_KILLFOCUS,NULL,NULL);
         SetLayeredWindowAttributes(hwnd,NULL,240,LWA_ALPHA);
         break;
-    case WM_DROPFILES:      // »ñÈ¡ÍÏ×§¹ýÀ´µÄÎÄ¼þÃû
+    case WM_DROPFILES:      // èŽ·å–æ‹–æ‹½è¿‡æ¥çš„æ–‡ä»¶å
         hDropInfo = (HDROP) wParam; 
         DragQueryFile(hDropInfo, 0, szFileName, MAX_PATH);
         SendMessage(hwnd,XC_ANALYSEPEFILE,LPARAM(szFileName),WPARAM(NULL));
         break;
-    case WM_COMMAND:        // ÍÐÅÌ²Ëµ¥ÏìÓ¦
+    case WM_COMMAND:        // æ‰˜ç›˜èœå•å“åº”
         switch(LOWORD(wParam)){
         case IDM_ITEM_QUIT:
             SendMessage(hwnd,WM_DESTROY,NULL,NULL);
@@ -211,11 +211,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_HOTKEY:         // ÈÈ¼ü
+    case WM_HOTKEY:         // çƒ­é”®
         if ( wParam == ID_HOTKEY_ALT_R )
             SendMessage(hwnd,XC_DIALOG_SHOWHIDE,NULL,NULL);
         break;
-    case WM_USER:           // ÍÐÅÌÍ¼±ê°´¼üÏûÏ¢
+    case WM_USER:           // æ‰˜ç›˜å›¾æ ‡æŒ‰é”®æ¶ˆæ¯
         if (lParam == WM_RBUTTONDOWN){
             GetCursorPos(&point);
             SetForegroundWindow(hwnd);
@@ -224,10 +224,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             SendMessage(hwnd,XC_DIALOG_SHOWHIDE,NULL,NULL);
         }
         break;
-    case WM_SETFOCUS:       // µ±´°¿ÚÈ¡µÃ½¹µãÊ±
+    case WM_SETFOCUS:       // å½“çª—å£å–å¾—ç„¦ç‚¹æ—¶
         SetLayeredWindowAttributes(hwnd,NULL,240,LWA_ALPHA);
         return 0;
-    case WM_KILLFOCUS:      // µ±´°¿ÚÊ§È¥½¹µãÊ±
+    case WM_KILLFOCUS:      // å½“çª—å£å¤±åŽ»ç„¦ç‚¹æ—¶
         SetLayeredWindowAttributes(hwnd,NULL,100,LWA_ALPHA);
         return 0;
     case XC_DIALOG_SHOWHIDE:
@@ -293,11 +293,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     default:
         /*
-        * ·ÀÖ¹µ±Explorer.exe ±ÀÀ£ÒÔºó£¬³ÌÐòÔÚÏµÍ³ÏµÍ³ÍÐÅÌÖÐµÄÍ¼±ê¾ÍÏûÊ§
+        * é˜²æ­¢å½“Explorer.exe å´©æºƒä»¥åŽï¼Œç¨‹åºåœ¨ç³»ç»Ÿç³»ç»Ÿæ‰˜ç›˜ä¸­çš„å›¾æ ‡å°±æ¶ˆå¤±
         *
-        * Ô­Àí£ºExplorer.exe ÖØÐÂÔØÈëºó»áÖØ½¨ÏµÍ³ÈÎÎñÀ¸¡£µ±ÏµÍ³ÈÎÎñÀ¸½¨Á¢µÄÊ±ºò»áÏòÏµÍ³ÄÚËùÓÐ
-        * ×¢²á½ÓÊÕTaskbarCreated ÏûÏ¢µÄ¶¥¼¶´°¿Ú·¢ËÍÒ»ÌõÏûÏ¢£¬ÎÒÃÇÖ»ÐèÒª²¶×½Õâ¸öÏûÏ¢£¬²¢ÖØ½¨Ïµ
-        * Í³ÍÐÅÌµÄÍ¼±ê¼´¿É¡£
+        * åŽŸç†ï¼šExplorer.exe é‡æ–°è½½å…¥åŽä¼šé‡å»ºç³»ç»Ÿä»»åŠ¡æ ã€‚å½“ç³»ç»Ÿä»»åŠ¡æ å»ºç«‹çš„æ—¶å€™ä¼šå‘ç³»ç»Ÿå†…æ‰€æœ‰
+        * æ³¨å†ŒæŽ¥æ”¶TaskbarCreated æ¶ˆæ¯çš„é¡¶çº§çª—å£å‘é€ä¸€æ¡æ¶ˆæ¯ï¼Œæˆ‘ä»¬åªéœ€è¦æ•æ‰è¿™ä¸ªæ¶ˆæ¯ï¼Œå¹¶é‡å»ºç³»
+        * ç»Ÿæ‰˜ç›˜çš„å›¾æ ‡å³å¯ã€‚
         */
         if (message == WM_TASKBARCREATED)
             SendMessage(hwnd,WM_CREATE,NULL,NULL);
@@ -333,8 +333,8 @@ void initTrayIcon( HWND hwnd,NOTIFYICONDATA * nid ){
 }
 
 void writeToHtml( const TCHAR peFilePath[],TCHAR htmlFilePath[] ){
-    // ¸ù¾ÝÎÄ¼þµÄÈ«Â·¾¶ÃûµÃµ½ÎÄ¼þÃû£¬²¢ÎªÆäºó×ºÉÏ_index.html£¬×÷ÎªhtmlµÄÎÄ¼þÃû
-    TCHAR fileName[MAX_PATH];   // ²»°üÀ¨È«Â·¾¶£¬½öÓÐÎÄ¼þÃûºÍºó×ºÃñ
+    // æ ¹æ®æ–‡ä»¶çš„å…¨è·¯å¾„åå¾—åˆ°æ–‡ä»¶åï¼Œå¹¶ä¸ºå…¶åŽç¼€ä¸Š_index.htmlï¼Œä½œä¸ºhtmlçš„æ–‡ä»¶å
+    TCHAR fileName[MAX_PATH];   // ä¸åŒ…æ‹¬å…¨è·¯å¾„ï¼Œä»…æœ‰æ–‡ä»¶åå’ŒåŽç¼€æ°‘
     getFileNameFromFullPath(peFilePath,fileName);
     for ( int i = wcslen(fileName)-1 ; i >= 0 ; i -- ){
         if ( fileName[i] == '.' ){

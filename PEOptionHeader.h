@@ -7,23 +7,23 @@ class PEOptionHeader
 public:
     static const char DllCharacterStr[][35];
 
-    // PEOptionHeader32·µ»Øtrue£¬PEOptionHeader64·µ»Øfalse
+    // PEOptionHeader32è¿”å›trueï¼ŒPEOptionHeader64è¿”å›false
     virtual bool isWin32PEFile() = 0;
 
     virtual int  getStructSize() = 0;
 
-    // »ñÈ¡dataDirectoryÄ¿Â¼µÄ¸öÊı
+    // è·å–dataDirectoryç›®å½•çš„ä¸ªæ•°
     virtual int getDataDirectoryNum() = 0;
 
-    // »ñÈ¡µÚindex¸ödataDirectoryÄ¿Â¼
+    // è·å–ç¬¬indexä¸ªdataDirectoryç›®å½•
     virtual IMAGE_DATA_DIRECTORY getDataDirectory(int index) = 0;
 
     virtual ULONGLONG getImageBase() = 0;
 
-    // peFileÒªÇóÊÇÒÑ¾­´ò¿ªµÄfileµÄ¾ä±ú£¬¶øÇÒµ±Ç°Î»ÖÃÊÇ¿ÉÒÔÖ±½Ó¶ÁÈ¡peÎÄ¼şoptionheaderµÄÎ»ÖÃ
+    // peFileè¦æ±‚æ˜¯å·²ç»æ‰“å¼€çš„fileçš„å¥æŸ„ï¼Œè€Œä¸”å½“å‰ä½ç½®æ˜¯å¯ä»¥ç›´æ¥è¯»å–peæ–‡ä»¶optionheaderçš„ä½ç½®
     virtual void readData(HANDLE peFile) = 0;
 
-    // ÒªÇóÊÇÒÑ¾­´ò¿ªµÄfileµÄ¾ä±ú£¬ÇÒÒÑ¾­¶¨Î»ºÃÁË£¬º¯Êı½«»áÖ±½ÓÏòÆäÖĞĞ´ÈëÊı¾İ
+    // è¦æ±‚æ˜¯å·²ç»æ‰“å¼€çš„fileçš„å¥æŸ„ï¼Œä¸”å·²ç»å®šä½å¥½äº†ï¼Œå‡½æ•°å°†ä¼šç›´æ¥å‘å…¶ä¸­å†™å…¥æ•°æ®
     virtual void writeDataToFile(  HANDLE tempFile  ) = 0;
 };
 

@@ -4,7 +4,7 @@
 
 class StringTemplate
 {
-// ×î»ù±¾µÄÄ£°å£¬Ò²ÊÇ¸ÃPEviewerÖĞÓÃµÄ×î¶àµÄÒ»¸öÄ£°å
+// æœ€åŸºæœ¬çš„æ¨¡æ¿ï¼Œä¹Ÿæ˜¯è¯¥PEviewerä¸­ç”¨çš„æœ€å¤šçš„ä¸€ä¸ªæ¨¡æ¿
 public:
 	static const char baseTemplate[];
 	static const char importTemplate[];
@@ -21,23 +21,23 @@ private:
 	// Qualifier:
 	// Parameter: char * source
 	// Parameter: char * checkStr
-	// À´ÅĞ¶ÏsourceÖĞÊÇ·ñ°üº¬checkStr×Ö·û´®£¬Èô°üº¬£¬Ôò·µ»Ø¸Ã´®ÔÙsourceÖĞµÄÎ»ÖÃ
-	// ·ñÔò£¬·µ»Ø-1
+	// æ¥åˆ¤æ–­sourceä¸­æ˜¯å¦åŒ…å«checkStrå­—ç¬¦ä¸²ï¼Œè‹¥åŒ…å«ï¼Œåˆ™è¿”å›è¯¥ä¸²å†sourceä¸­çš„ä½ç½®
+	// å¦åˆ™ï¼Œè¿”å›-1
 	//************************************
 	int stringContains( char * source,char * checkStr );
 
 public:
-	// ÉèÖÃ×Ö·û´®Ä£°å¡£ÆäÖĞĞèÒª±»Ìæ»»µÄ´®ĞèÒªÊ¹ÓÃ <<>> À¨ÆğÀ´
+	// è®¾ç½®å­—ç¬¦ä¸²æ¨¡æ¿ã€‚å…¶ä¸­éœ€è¦è¢«æ›¿æ¢çš„ä¸²éœ€è¦ä½¿ç”¨ <<>> æ‹¬èµ·æ¥
 	void setBaseStr ( const char baseStr[] );
 
-	// name		±»<<>>À¨ÆğÀ´µÄ×Ö·û´®
-	// value			½«Òª±»Ìæ»»³ÉµÄ×Ö·û´®
-	// ½«<<name>>Ìæ»»³Évalue¡£Èç¹û´æÔÚ<<name>>£¬Ôò·µ»Øtrue£¬²¢Ìæ»»£¬·ñÔò£¬·µ»Øfalse
+	// name		è¢«<<>>æ‹¬èµ·æ¥çš„å­—ç¬¦ä¸²
+	// value			å°†è¦è¢«æ›¿æ¢æˆçš„å­—ç¬¦ä¸²
+	// å°†<<name>>æ›¿æ¢æˆvalueã€‚å¦‚æœå­˜åœ¨<<name>>ï¼Œåˆ™è¿”å›trueï¼Œå¹¶æ›¿æ¢ï¼Œå¦åˆ™ï¼Œè¿”å›false
 	void exchange( char * name,char * value );
 
-	// »ñÈ¡µ±Ç°baseStrµÄ×Ö·û´®³¤¶È
+	// è·å–å½“å‰baseStrçš„å­—ç¬¦ä¸²é•¿åº¦
 	int getLength();
 
-	// »ñÈ¡µ±Ç°µÄbaseStr
+	// è·å–å½“å‰çš„baseStr
 	void getString( char * temp );
 };

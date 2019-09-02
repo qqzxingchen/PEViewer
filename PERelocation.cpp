@@ -15,7 +15,7 @@ bool PERelocation::writeToTempFile()
     HANDLE peFile = CreateFile(peBase->getPEFilePath(),GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
     if ( peFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("´ò¿ªPEÎÄ¼þÊ§°Ü"));
+        wsprintf(ErrorString,TEXT("æ‰“å¼€PEæ–‡ä»¶å¤±è´¥"));
         return false;
     }
 
@@ -29,7 +29,7 @@ bool PERelocation::writeToTempFile()
         NULL );
     if ( tempFile == INVALID_HANDLE_VALUE ){
         int a = GetLastError();
-        wsprintf(ErrorString,TEXT("´´½¨»º´æÎÄ¼þÊ§°Ü"));
+        wsprintf(ErrorString,TEXT("åˆ›å»ºç¼“å­˜æ–‡ä»¶å¤±è´¥"));
         return false;
     }
 

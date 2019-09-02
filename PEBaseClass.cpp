@@ -24,7 +24,7 @@ BOOL PEBase::getDosNTSection( )
 
 	hFile=CreateFile(fFullPath,GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
 	if( hFile == INVALID_HANDLE_VALUE ){
-		wsprintf(ErrorString,TEXT("´ò¿ªÎÄ¼şÊ§°Ü"));
+		wsprintf(ErrorString,TEXT("æ‰“å¼€æ–‡ä»¶å¤±è´¥"));
 		return FALSE;
 	}
 	
@@ -33,7 +33,7 @@ BOOL PEBase::getDosNTSection( )
 	if(strncmp((char*)&dosHeader.e_magic,"MZ",2)!=0)
 	{	
 		CloseHandle(hFile);
-		wsprintf(ErrorString,TEXT("MZ×Ö¶ÎÎŞ·¨Æ¥Åä"));
+		wsprintf(ErrorString,TEXT("MZå­—æ®µæ— æ³•åŒ¹é…"));
 		return FALSE;
 	}
 	
@@ -43,7 +43,7 @@ BOOL PEBase::getDosNTSection( )
     if(strncmp((char*)(&signature),"PE\0\0",4)!=0 )
 	{	
 		CloseHandle(hFile);
-		wsprintf(ErrorString,TEXT("PE×Ö¶ÎÎŞ·¨Æ¥Åä"));
+		wsprintf(ErrorString,TEXT("PEå­—æ®µæ— æ³•åŒ¹é…"));
 		return FALSE;
 	}
 
@@ -75,7 +75,7 @@ ULONGLONG PEBase::RvaToFoa( ULONGLONG rva )
 {
 	if(pSection==NULL)
 	{
-		wsprintf(ErrorString,TEXT("Î´»ñÈ¡½ÚĞÅÏ¢,ÎŞ·¨½øĞĞµØÖ·×ª»»"));
+		wsprintf(ErrorString,TEXT("æœªè·å–èŠ‚ä¿¡æ¯,æ— æ³•è¿›è¡Œåœ°å€è½¬æ¢"));
 		return 0;
 	}
 
@@ -88,7 +88,7 @@ ULONGLONG PEBase::RvaToFoa( ULONGLONG rva )
 			
 			return rva -(ULONGLONG)(pTempSection[i].VirtualAddress) +(ULONGLONG)(pTempSection[i].PointerToRawData);
 	}
-	wsprintf(ErrorString,TEXT("rvaµØÖ·²»ÔÚÒÑÖª½ÚÄÚ,ÇëºËÊµ"));
+	wsprintf(ErrorString,TEXT("rvaåœ°å€ä¸åœ¨å·²çŸ¥èŠ‚å†…,è¯·æ ¸å®"));
 	
 	return 0;
 }
@@ -101,59 +101,59 @@ const TCHAR* PEBase::getPEFilePath()
 
 const char PEBase::CharacterStr[16][50]=
 {
-	"ÎÄ¼şÖĞ²»´æÔÚÖØ¶¨Î»ĞÅÏ¢",
-	"ÎÄ¼şÊÇ¿ÉÖ´ĞĞµÄ",
-	"ÎÄ¼ş²»´æÔÚĞĞĞÅÏ¢",
-	"ÎÄ¼ş²»´æÔÚ·ûºÅĞÅÏ¢",
-	"µ÷Õû¹¤×÷¼¯",
-	"¿É´¦Àí2GBÒÔÉÏµØÖ·",
-	"±£Áô",
-	"Ğ¡Î²·½Ê½",
-	"Ö»ÔÚ32Î»Æ½Ì¨ÉÏÔËĞĞ",
-	"²»°üº¬µ÷ÊÔĞÅÏ¢",
-	"²»ÄÜ´Ó¿ÉÒÆ¶¯ÅÌÔËĞĞ",
-	"²»ÄÜ´ÓÍøÂçÔËĞĞ",
-	"ÏµÍ³ÎÄ¼ş£¬²»ÄÜÖ±½ÓÔËĞĞ",
-	"DLLÎÄ¼ş",
-	"ÎÄ¼ş²»ÄÜÔÙ¶à´¦ÀíÆ÷¼ÆËã»úÉÏÔËĞĞ",
-	"´óÎ²·½Ê½"
+	"æ–‡ä»¶ä¸­ä¸å­˜åœ¨é‡å®šä½ä¿¡æ¯",
+	"æ–‡ä»¶æ˜¯å¯æ‰§è¡Œçš„",
+	"æ–‡ä»¶ä¸å­˜åœ¨è¡Œä¿¡æ¯",
+	"æ–‡ä»¶ä¸å­˜åœ¨ç¬¦å·ä¿¡æ¯",
+	"è°ƒæ•´å·¥ä½œé›†",
+	"å¯å¤„ç†2GBä»¥ä¸Šåœ°å€",
+	"ä¿ç•™",
+	"å°å°¾æ–¹å¼",
+	"åªåœ¨32ä½å¹³å°ä¸Šè¿è¡Œ",
+	"ä¸åŒ…å«è°ƒè¯•ä¿¡æ¯",
+	"ä¸èƒ½ä»å¯ç§»åŠ¨ç›˜è¿è¡Œ",
+	"ä¸èƒ½ä»ç½‘ç»œè¿è¡Œ",
+	"ç³»ç»Ÿæ–‡ä»¶ï¼Œä¸èƒ½ç›´æ¥è¿è¡Œ",
+	"DLLæ–‡ä»¶",
+	"æ–‡ä»¶ä¸èƒ½å†å¤šå¤„ç†å™¨è®¡ç®—æœºä¸Šè¿è¡Œ",
+	"å¤§å°¾æ–¹å¼"
 };
 
 const char PEBase::DataDirectoryName[16][25]=
 {
-	"µ¼³ö±í(.edata)",
-	"µ¼Èë±í(.idata)",
-	"×ÊÔ´±í(.rsrc)",
-	"Òì³£±í(.pdata)",
-	"°²È«±í(ÎÄ¼şÆ«ÒÆ)",
-	"ÖØ¶¨Î»±í(.reloc)",
-	"µ÷ÊÔ±í(.debug)",
-	"°æÈ¨±í(±ØĞëÎª0)",
-	"È«¾ÖÖ¸Õë±í",
-	"Ïß³Ì±¾µØ´æ´¢±í(.tls)",
-	"¼ÓÔØÅäÖÃ±í",
-	"°ó¶¨µ¼Èë±í",
-	"IAT±í",
-	"ÑÓ³Ùµ¼Èë±í",
-	"CLR±í(.cormeta)",
-	"Ô¤ÁôÀàĞÍ"
+	"å¯¼å‡ºè¡¨(.edata)",
+	"å¯¼å…¥è¡¨(.idata)",
+	"èµ„æºè¡¨(.rsrc)",
+	"å¼‚å¸¸è¡¨(.pdata)",
+	"å®‰å…¨è¡¨(æ–‡ä»¶åç§»)",
+	"é‡å®šä½è¡¨(.reloc)",
+	"è°ƒè¯•è¡¨(.debug)",
+	"ç‰ˆæƒè¡¨(å¿…é¡»ä¸º0)",
+	"å…¨å±€æŒ‡é’ˆè¡¨",
+	"çº¿ç¨‹æœ¬åœ°å­˜å‚¨è¡¨(.tls)",
+	"åŠ è½½é…ç½®è¡¨",
+	"ç»‘å®šå¯¼å…¥è¡¨",
+	"IATè¡¨",
+	"å»¶è¿Ÿå¯¼å…¥è¡¨",
+	"CLRè¡¨(.cormeta)",
+	"é¢„ç•™ç±»å‹"
 };
 
 const char PEBase::SectionCharacteristics_Base5[][50] = 
 {
-	"½ÚÖĞ°üº¬´úÂë",
-	"½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ",
-	"½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ"
+	"èŠ‚ä¸­åŒ…å«ä»£ç ",
+	"èŠ‚ä¸­åŒ…å«å·²åˆå§‹åŒ–çš„æ•°æ®",
+	"èŠ‚ä¸­åŒ…å«æœªåˆå§‹åŒ–çš„æ•°æ®"
 };
 const char PEBase::SectionCharacteristics_Base25[][50] = 
 {
-	"½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú",
-	"½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ",
-	"½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ",
-	"½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí",
-	"Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ",
-	"Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ",
-	"Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ"
+	"èŠ‚ä¸­çš„æ•°æ®åœ¨è¿›ç¨‹å¼€å§‹åå°†è¢«ä¸¢å¼ƒ",
+	"èŠ‚ä¸­çš„æ•°æ®ä¸ä¼šç»è¿‡ç¼“å­˜",
+	"èŠ‚ä¸­çš„æ•°æ®ä¸ä¼šè¢«äº¤æ¢åˆ°ç£ç›˜",
+	"èŠ‚ä¸­çš„æ•°æ®å°†ä¼šè¢«ä¸åŒè¿›ç¨‹æ‰€å…±äº«",
+	"æ˜ å°„åˆ°å†…å­˜åçš„é¡µé¢åŒ…å«å¯æ‰§è¡Œå±æ€§",
+	"æ˜ å°„åˆ°å†…å­˜åçš„é¡µé¢åŒ…å«å¯è¯»å±æ€§",
+	"æ˜ å°„åˆ°å†…å­˜åçš„é¡µé¢åŒ…å«å¯å†™å±æ€§"
 };
 
 
@@ -171,7 +171,7 @@ BOOL PEBase::writeToTempFile()
 		NULL );
 	if ( tempFile == INVALID_HANDLE_VALUE ){
 		int a = GetLastError();
-		wsprintf(ErrorString,TEXT("´´½¨»º´æÎÄ¼şÊ§°Ü"));
+		wsprintf(ErrorString,TEXT("åˆ›å»ºç¼“å­˜æ–‡ä»¶å¤±è´¥"));
 		return false;
 	}
 
@@ -205,12 +205,12 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	char temp[1024];
 	char retu[1024];
 
-	writeStringToFile(hFile,"{ name:'IMAGE_DOS_HEADER',title:'DOSÍ·',value:[");
+	writeStringToFile(hFile,"{ name:'IMAGE_DOS_HEADER',title:'DOSå¤´',value:[");
 
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_magic" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_magic ),temp ) );
-	st.exchange( "desc","EXE ±êÖ¾,MZ" );
+	st.exchange( "desc","EXE æ ‡å¿—,MZ" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_magic) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -219,7 +219,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_cblp" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_cblp ),temp ) );
-	st.exchange( "desc","×îºó£¨²¿·Ö£©Ò³ÖĞµÄ×Ö½ÚÊı" );
+	st.exchange( "desc","æœ€åï¼ˆéƒ¨åˆ†ï¼‰é¡µä¸­çš„å­—èŠ‚æ•°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_cblp) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -228,7 +228,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_cp" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_cp ),temp ) );
-	st.exchange( "desc","ÎÄ¼şÖĞµÄÈ«²¿ºÍ²¿·ÖÒ³Êı" );
+	st.exchange( "desc","æ–‡ä»¶ä¸­çš„å…¨éƒ¨å’Œéƒ¨åˆ†é¡µæ•°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_cp) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -237,7 +237,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_crlc" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_crlc ),temp ) );
-	st.exchange( "desc","ÖØ¶¨Î»±íÖĞµÄÖ¸ÕëÊı" );
+	st.exchange( "desc","é‡å®šä½è¡¨ä¸­çš„æŒ‡é’ˆæ•°" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_crlc) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -246,7 +246,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_cparhdr" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_cparhdr ),temp ) );
-	st.exchange( "desc","Í·²¿³ß´ç£¬ÒÔ¶ÎÂäÎªµ¥Î»" );
+	st.exchange( "desc","å¤´éƒ¨å°ºå¯¸ï¼Œä»¥æ®µè½ä¸ºå•ä½" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_cparhdr) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -255,7 +255,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_minalloc" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_minalloc ),temp ) );
-	st.exchange( "desc","ËùĞèµÄ×îĞ¡¸½¼Ó¶Î" );
+	st.exchange( "desc","æ‰€éœ€çš„æœ€å°é™„åŠ æ®µ" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_minalloc) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -264,7 +264,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_maxalloc" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_maxalloc ),temp ) );
-	st.exchange( "desc","ËùĞèµÄ×î´ó¸½¼Ó¶Î" );
+	st.exchange( "desc","æ‰€éœ€çš„æœ€å¤§é™„åŠ æ®µ" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_maxalloc) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -273,7 +273,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_ss" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_ss ),temp ) );
-	st.exchange( "desc","³õÊ¼µÄSSÖµ" );
+	st.exchange( "desc","åˆå§‹çš„SSå€¼" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_ss) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -282,7 +282,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_sp" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_sp),temp ) );
-	st.exchange( "desc","³õÊ¼µÄSPÖµ" );
+	st.exchange( "desc","åˆå§‹çš„SPå€¼" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_sp) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -291,7 +291,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_csum" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_csum),temp ) );
-	st.exchange( "desc","²¹ÂëĞ£ÑéÖµ" );
+	st.exchange( "desc","è¡¥ç æ ¡éªŒå€¼" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_csum) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -300,7 +300,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_ip" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_ip),temp ) );
-	st.exchange( "desc","³õÊ¼µÄIPÖµ" );
+	st.exchange( "desc","åˆå§‹çš„IPå€¼" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_ip) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -309,7 +309,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_cs" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_cs),temp ) );
-	st.exchange( "desc","³õÊ¼µÄCSÖµ" );
+	st.exchange( "desc","åˆå§‹çš„CSå€¼" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_cs) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -318,7 +318,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_lfarlc" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_lfarlc),temp ) );
-	st.exchange( "desc","ÖØ¶¨Î»±íµÄ×Ö½ÚÆ«ÒÆÁ¿" );
+	st.exchange( "desc","é‡å®šä½è¡¨çš„å­—èŠ‚åç§»é‡" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_lfarlc) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -327,7 +327,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_ovno" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_ovno),temp ) );
-	st.exchange( "desc","¸²¸ÇºÅ" );
+	st.exchange( "desc","è¦†ç›–å·" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_ovno) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -341,7 +341,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	}
 	wsprintfA( &temp[strlen(temp)],"\"" );
 	st.exchange( "value", temp );
-	st.exchange( "desc","±£Áô×Ö" );
+	st.exchange( "desc","ä¿ç•™å­—" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_res) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -350,7 +350,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_oemid" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_oemid),temp ) );
-	st.exchange( "desc","OEM±êÊ¾·û" );
+	st.exchange( "desc","OEMæ ‡ç¤ºç¬¦" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_oemid) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -359,7 +359,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_oeminfo" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_oeminfo),temp ) );
-	st.exchange( "desc","OEMĞÅÏ¢" );
+	st.exchange( "desc","OEMä¿¡æ¯" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_oeminfo) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -373,7 +373,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	}
 	wsprintfA( &temp[strlen(temp)],"\"" );
 	st.exchange( "value", temp );
-	st.exchange( "desc","±£Áô×Ö" );
+	st.exchange( "desc","ä¿ç•™å­—" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_res2) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -382,7 +382,7 @@ void PEBase::writeDOSHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","e_lfanew" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",this->dosHeader.e_lfanew),temp ) );
-	st.exchange( "desc","PEÍ·Ïà¶ÔÓÚÎÄ¼ş¿ªÊ¼´¦µÄÆ«ÒÆµØÖ·" );
+	st.exchange( "desc","PEå¤´ç›¸å¯¹äºæ–‡ä»¶å¼€å§‹å¤„çš„åç§»åœ°å€" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(this->dosHeader.e_lfanew) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -397,33 +397,33 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	char temp[1024];
 	char retu[1024];
 
-	writeStringToFile(hFile,"{ name:'IMAGE_FILE_HEADER',title:'NT±ê×¼Í·',value:[");
+	writeStringToFile(hFile,"{ name:'IMAGE_FILE_HEADER',title:'NTæ ‡å‡†å¤´',value:[");
 
 	st.setBaseStr( StringTemplate::baseTemplate );
 
 	switch ((int)fileHeader.Machine)
 	{
-	case IMAGE_FILE_MACHINE_UNKNOWN	:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºÊÊÓÃÓÚÈÎºÎ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_AM33				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºMatsushita AM33 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_AMD64			:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºx64 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_ARM				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºARM Ğ¡Î²´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_EBC					:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºEFI ×Ö½ÚÂë´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_I386				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºIntel 386 ´¦ÀíÆ÷»òºóĞø¼æÈİ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_IA64				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºIntel Itanium ´¦ÀíÆ÷ÏµÁĞ");break;
-	case IMAGE_FILE_MACHINE_M32R				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºMitsubishi M32R Ğ¡Î²´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_MIPS16			:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºMIPS16 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_MIPSFPU		:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£º´ø FPU µÄ MIPS ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_MIPSFPU16	:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£º´ø FPU µÄ MIPS16 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_POWERPC		:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºPower PC Ğ¡Î²´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_POWERPCFP	:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£º´ø¸¡µãÖ§³ÖµÄ Power PC ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_R4000				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºMIPS Ğ¡Î²´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_SH3				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºHitachi SH3 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_SH3DSP			:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºHitachi SH3 DSP ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_SH4				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºHitachi SH4 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_SH5				:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºHitachi SH5 ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_THUMB			:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºARM »ò Thumb ´¦ÀíÆ÷");break;
-	case IMAGE_FILE_MACHINE_WCEMIPSV2	:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºMIPS Ğ¡Î² WCE v2 ´¦ÀíÆ÷");break;
-	default:wsprintfA(temp,"ÔËĞĞÆ½Ì¨£ºÎ´Öª");
+	case IMAGE_FILE_MACHINE_UNKNOWN	:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šé€‚ç”¨äºä»»ä½•å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_AM33				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šMatsushita AM33 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_AMD64			:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šx64 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_ARM				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šARM å°å°¾å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_EBC					:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šEFI å­—èŠ‚ç å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_I386				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šIntel 386 å¤„ç†å™¨æˆ–åç»­å…¼å®¹å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_IA64				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šIntel Itanium å¤„ç†å™¨ç³»åˆ—");break;
+	case IMAGE_FILE_MACHINE_M32R				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šMitsubishi M32R å°å°¾å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_MIPS16			:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šMIPS16 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_MIPSFPU		:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šå¸¦ FPU çš„ MIPS å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_MIPSFPU16	:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šå¸¦ FPU çš„ MIPS16 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_POWERPC		:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šPower PC å°å°¾å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_POWERPCFP	:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šå¸¦æµ®ç‚¹æ”¯æŒçš„ Power PC å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_R4000				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šMIPS å°å°¾å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_SH3				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šHitachi SH3 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_SH3DSP			:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šHitachi SH3 DSP å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_SH4				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šHitachi SH4 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_SH5				:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šHitachi SH5 å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_THUMB			:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šARM æˆ– Thumb å¤„ç†å™¨");break;
+	case IMAGE_FILE_MACHINE_WCEMIPSV2	:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šMIPS å°å°¾ WCE v2 å¤„ç†å™¨");break;
+	default:wsprintfA(temp,"è¿è¡Œå¹³å°ï¼šæœªçŸ¥");
 	}
 	st.exchange( "desc",temp );
 	st.exchange( "name","Machine" );
@@ -436,7 +436,7 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfSections" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",fileHeader.NumberOfSections),temp ) );
-	st.exchange( "desc","½ÚµÄÊıÁ¿£¨IMAGE_SECTION_HEADERµÄ¸öÊı£©" );
+	st.exchange( "desc","èŠ‚çš„æ•°é‡ï¼ˆIMAGE_SECTION_HEADERçš„ä¸ªæ•°ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(fileHeader.NumberOfSections) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -445,7 +445,7 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","TimeDateStamp" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",fileHeader.TimeDateStamp),temp ) );
-	st.exchange( "desc","ÎÄ¼ş´´½¨ÈÕÆÚºÍÊ±¼ä" );
+	st.exchange( "desc","æ–‡ä»¶åˆ›å»ºæ—¥æœŸå’Œæ—¶é—´" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(fileHeader.TimeDateStamp) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -454,7 +454,7 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","PointerToSymbolTable" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",fileHeader.PointerToSymbolTable),temp ) );
-	st.exchange( "desc","Ö¸Ïò·ûºÅ±í£¨ÓÃÓÚµ÷ÊÔ£¬Ã»ÓĞÔòÎª0£©" );
+	st.exchange( "desc","æŒ‡å‘ç¬¦å·è¡¨ï¼ˆç”¨äºè°ƒè¯•ï¼Œæ²¡æœ‰åˆ™ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(fileHeader.PointerToSymbolTable) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -463,7 +463,7 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfSymbols" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",fileHeader.NumberOfSymbols),temp ) );
-	st.exchange( "desc","·ûºÅ±íÖĞµÄ·ûºÅÊıÁ¿£¨ÓÃÓÚµ÷ÊÔ£¬Ã»ÓĞÔòÎª0£©" );
+	st.exchange( "desc","ç¬¦å·è¡¨ä¸­çš„ç¬¦å·æ•°é‡ï¼ˆç”¨äºè°ƒè¯•ï¼Œæ²¡æœ‰åˆ™ä¸º0ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(fileHeader.NumberOfSymbols) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -472,14 +472,14 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfOptionalHeader" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",fileHeader.SizeOfOptionalHeader),temp ) );
-	st.exchange( "desc","À©Õ¹Í·½á¹¹µÄ³¤¶È£¨0x00E0 == 32Î»PEÎÄ¼ş£¬0x00F0 == 64Î»PEÎÄ¼ş£©" );
+	st.exchange( "desc","æ‰©å±•å¤´ç»“æ„çš„é•¿åº¦ï¼ˆ0x00E0 == 32ä½PEæ–‡ä»¶ï¼Œ0x00F0 == 64ä½PEæ–‡ä»¶ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(fileHeader.SizeOfOptionalHeader) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"ÎÄ¼şÊôĞÔ" );
+	wsprintfA( temp,"æ–‡ä»¶å±æ€§" );
 	bool sign = false;
     WORD a;
 	for ( int i = 0 ; i < 16 ; i ++ ){	
@@ -487,9 +487,9 @@ void PEBase::writeNTFileHeader( HANDLE hFile )
 		if ( ( a & fileHeader.Characteristics) == 0 )
 			continue;
 		if ( sign ){
-			wsprintfA( &temp[strlen(temp)],"¡¢%s",CharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ã€%s",CharacterStr[i] );
 		}else{
-			wsprintfA( &temp[strlen(temp)],"£º%s",CharacterStr[i] );
+			wsprintfA( &temp[strlen(temp)],"ï¼š%s",CharacterStr[i] );
 			sign = true;
 		}
 	}
@@ -513,7 +513,7 @@ void PEBase::writeNTOptionalDataDirectory( HANDLE hFile )
 	char temp[1024];
 	char retu[1024];
 
-	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::DATA_DIRECTORY',title:'Êı¾İÄ¿Â¼Ïî',value:[");
+	writeStringToFile(hFile,"{ name:'IMAGE_OPTIONAL_HEADER::DATA_DIRECTORY',title:'æ•°æ®ç›®å½•é¡¹',value:[");
 
     int length = this->optionHeader->getDataDirectoryNum();
     for ( int i = 0 ; i < length ; i ++ ){
@@ -545,13 +545,13 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 
 	IMAGE_SECTION_HEADER section = ((PIMAGE_SECTION_HEADER)pSection)[index];
 
-	wsprintfA( retu,"{ name:'IMAGE_SECTION_HEADER[%u]',title:'½Ú±í[%u]',value:[",index,index );
+	wsprintfA( retu,"{ name:'IMAGE_SECTION_HEADER[%u]',title:'èŠ‚è¡¨[%u]',value:[",index,index );
 	writeStringToFile(hFile,retu);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","Name" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.Name),temp ) );
-	st.exchange( "desc", ( wsprintfA(temp,"8×Ö½Ú½ÚÃû£º%s",section.Name),temp ) );
+	st.exchange( "desc", ( wsprintfA(temp,"8å­—èŠ‚èŠ‚åï¼š%s",section.Name),temp ) );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.Name) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -560,7 +560,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","VirtualSize" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.Misc.VirtualSize),temp ) );
-	st.exchange( "desc","½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©" );
+	st.exchange( "desc","èŠ‚çš„æ•°æ®åœ¨æ²¡æœ‰å¯¹é½å‰çš„çœŸå®å°ºå¯¸ï¼ˆä½†æ˜¯å¾ˆå¤šPEæ–‡ä»¶ä¸­è¿™ä¸ªå€¼éƒ½ä¸å‡†ç¡®ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.Misc.VirtualSize) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -569,7 +569,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","VirtualAddress" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.VirtualAddress),temp ) );
-	st.exchange( "desc","½ÚÇøµÄRVAµØÖ·" );
+	st.exchange( "desc","èŠ‚åŒºçš„RVAåœ°å€" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.VirtualAddress) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -578,7 +578,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","SizeOfRawData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.SizeOfRawData),temp ) );
-	st.exchange( "desc","ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç" );
+	st.exchange( "desc","åœ¨æ–‡ä»¶ä¸­å¯¹é½åçš„å°ºå¯¸" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.SizeOfRawData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -587,7 +587,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","PointerToRawData" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.PointerToRawData),temp ) );
-	st.exchange( "desc","ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ" );
+	st.exchange( "desc","åœ¨æ–‡ä»¶ä¸­çš„åç§»" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.PointerToRawData) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -596,7 +596,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","PointerToRelocations" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.PointerToRelocations),temp ) );
-	st.exchange( "desc","ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ" );
+	st.exchange( "desc","åœ¨OBJæ–‡ä»¶ä¸­ä½¿ç”¨" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.PointerToRelocations) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -605,7 +605,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","PointerToLinenumbers" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.PointerToLinenumbers),temp ) );
-	st.exchange( "desc","ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©" );
+	st.exchange( "desc","è¡Œå·è¡¨çš„ä½ç½®ï¼ˆä¾›è°ƒè¯•ç”¨ï¼‰" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.PointerToLinenumbers) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -614,7 +614,7 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfRelocations" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.NumberOfRelocations),temp ) );
-	st.exchange( "desc","ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ" );
+	st.exchange( "desc","åœ¨OBJæ–‡ä»¶ä¸­ä½¿ç”¨" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.NumberOfRelocations) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
@@ -623,14 +623,14 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 	st.setBaseStr( StringTemplate::baseTemplate );
 	st.exchange( "name","NumberOfLinenumbers" );
 	st.exchange( "value", ( wsprintfA( temp,"%u",section.NumberOfLinenumbers),temp ) );
-	st.exchange( "desc","ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿" );
+	st.exchange( "desc","è¡Œå·è¡¨ä¸­è¡Œå·çš„æ•°é‡" );
 	st.exchange( "length",( wsprintfA( temp,"%u",sizeof(section.NumberOfLinenumbers) ),temp ) );
 	st.getString(retu);
 	writeStringToFile(hFile,retu);
 	writeSeparatorToFile(hFile);
 
 	st.setBaseStr( StringTemplate::baseTemplate );
-	wsprintfA( temp,"½ÚµÄÊôĞÔ");
+	wsprintfA( temp,"èŠ‚çš„å±æ€§");
 	bool sign = false;
 	int i ;
 	for ( i = 0 ; i < 3 ; i ++ )
@@ -638,9 +638,9 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 		if ( (i << (i+5)) && section.Characteristics == 0 )
 			continue;
 		if ( sign ){
-			wsprintfA( &temp[strlen(temp)],"¡¢%s",SectionCharacteristics_Base5[i] );
+			wsprintfA( &temp[strlen(temp)],"ã€%s",SectionCharacteristics_Base5[i] );
 		}else{
-			wsprintfA( &temp[strlen(temp)],"£º%s",SectionCharacteristics_Base5[i] );
+			wsprintfA( &temp[strlen(temp)],"ï¼š%s",SectionCharacteristics_Base5[i] );
 			sign = true;
 		}
 	}
@@ -649,9 +649,9 @@ void PEBase::writeSectionInfo( HANDLE hFile,int index )
 		if ( (i << (i+25)) && section.Characteristics == 0 )
 			continue;
 		if ( sign ){
-			wsprintfA( &temp[strlen(temp)],"¡¢%s",SectionCharacteristics_Base25[i] );
+			wsprintfA( &temp[strlen(temp)],"ã€%s",SectionCharacteristics_Base25[i] );
 		}else{
-			wsprintfA( &temp[strlen(temp)],"£º%s",SectionCharacteristics_Base25[i] );
+			wsprintfA( &temp[strlen(temp)],"ï¼š%s",SectionCharacteristics_Base25[i] );
 			sign = true;
 		}
 	}

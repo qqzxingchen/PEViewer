@@ -6,11 +6,11 @@
 #include "StringTemplate.h"
 #include "PEOptionHeader.h"
 
-//ÓÃÀ´´æ·ÅPEÎÄ¼şÖĞÇ°Ãæ¼¸¸ö´óĞ¡È·¶¨µÄ½á¹¹ÌåµÄÒ»Ğ©ĞÅÏ¢£¬°üÀ¨DOSheader£¬ntheader£¬section
+//ç”¨æ¥å­˜æ”¾PEæ–‡ä»¶ä¸­å‰é¢å‡ ä¸ªå¤§å°ç¡®å®šçš„ç»“æ„ä½“çš„ä¸€äº›ä¿¡æ¯ï¼ŒåŒ…æ‹¬DOSheaderï¼Œntheaderï¼Œsection
 class PEBase	
 {
 private:
-	TCHAR				fFullPath[256];		//PEÎÄ¼şµÄÈ«Â·¾¶
+	TCHAR				fFullPath[256];		//PEæ–‡ä»¶çš„å…¨è·¯å¾„
 	
 	StringTemplate st;
 
@@ -27,32 +27,32 @@ public:
 	TCHAR				ErrorString[256];
 
 private :
-	// ½«»áÏòÎÄ¼şÀïÊä³öÒÔÏÂ¸ñÊ½µÄÊı¾İ£º			{...},{...},{...},{...},{...}
+	// å°†ä¼šå‘æ–‡ä»¶é‡Œè¾“å‡ºä»¥ä¸‹æ ¼å¼çš„æ•°æ®ï¼š			{...},{...},{...},{...},{...}
 	void writeDOSHeader( HANDLE hFile );
 	void writeNTFileHeader( HANDLE hFile );
 	void writeNTOptionalDataDirectory( HANDLE hFile );
 	void writeSectionInfo( HANDLE hFile,int index );
 
-    // ÊÍ·ÅÉêÇëµÄÄÚ´æ
+    // é‡Šæ”¾ç”³è¯·çš„å†…å­˜
 	void Release();
 public:
 
 	PEBase ( TCHAR filePath[] );
 
-    // »ñÈ¡ÎÄ¼şµÄdosheaderºÍNTheader½á¹¹ÌåºÍSectionĞÅÏ¢£¬²¢ºË²éÊÇ·ñ·ûºÏPEÎÄ¼ş¸ñÊ½ÒªÇó
+    // è·å–æ–‡ä»¶çš„dosheaderå’ŒNTheaderç»“æ„ä½“å’ŒSectionä¿¡æ¯ï¼Œå¹¶æ ¸æŸ¥æ˜¯å¦ç¬¦åˆPEæ–‡ä»¶æ ¼å¼è¦æ±‚
 	BOOL getDosNTSection();	
 
-    // »ñÈ¡peÎÄ¼şµÄÂ·¾¶Ãû£¬µ«ÊÇÎŞ·¨±£Ö¤¸ÃÎÄ¼şÍêÈ«·ûºÏpe¹æ·¶£¬½ö½öÊÇ½«¸ÃÀà³õÊ¼»¯Ê±µÄ´«ÈëµÄÎÄ¼şÃû´«³öÈ¥
+    // è·å–peæ–‡ä»¶çš„è·¯å¾„åï¼Œä½†æ˜¯æ— æ³•ä¿è¯è¯¥æ–‡ä»¶å®Œå…¨ç¬¦åˆpeè§„èŒƒï¼Œä»…ä»…æ˜¯å°†è¯¥ç±»åˆå§‹åŒ–æ—¶çš„ä¼ å…¥çš„æ–‡ä»¶åä¼ å‡ºå»
 	const TCHAR * getPEFilePath();
 
-    // ½«Êı¾İĞ´µ½tempÎÄ¼şÖĞ£¬ÎÄ¼şµÄÃû×Ö¿ÉÒÔÍ¨¹ıgetTempFileName£¨£©»ñÈ¡µ½
+    // å°†æ•°æ®å†™åˆ°tempæ–‡ä»¶ä¸­ï¼Œæ–‡ä»¶çš„åå­—å¯ä»¥é€šè¿‡getTempFileNameï¼ˆï¼‰è·å–åˆ°
 	BOOL writeToTempFile();
 
 	const TCHAR * GetTempFileName( ){
 		return TEXT("temp\\dos_header.txt");
 	}
 
-	// Í¨¹ısectionÄÚµÄĞÅÏ¢»ñÈ¡rva¶ÔÓ¦µÄfoa
+	// é€šè¿‡sectionå†…çš„ä¿¡æ¯è·å–rvaå¯¹åº”çš„foa
 	ULONGLONG RvaToFoa(ULONGLONG rva);
 };
 
