@@ -1,5 +1,5 @@
-// ÎªNumberÌí¼ÓÒ»¸öÔ­ĞÍ·½·¨
-Number.prototype.toFormatString = function ( base,length ) {   // ×ª»¯Îª´ïµ½length³¤¶ÈµÄ×Ö·û´®£¬Èç¹û²»¹»£¬ÔòÇ°²¹Áã(baseÎª½«Òª×ª»»µÄ½øÖÆÊı)
+// ä¸ºNumberæ·»åŠ ä¸€ä¸ªåŸå‹æ–¹æ³•
+Number.prototype.toFormatString = function ( base,length ) {   // è½¬åŒ–ä¸ºè¾¾åˆ°lengthé•¿åº¦çš„å­—ç¬¦ä¸²ï¼Œå¦‚æœä¸å¤Ÿï¼Œåˆ™å‰è¡¥é›¶(baseä¸ºå°†è¦è½¬æ¢çš„è¿›åˆ¶æ•°)
     if (!base)
         base = 16;
     var temp = this.toString(base);
@@ -40,7 +40,7 @@ Date.prototype.toFormatString = function ( formatString ){
 }
 
 
-// È¡µÃ½ÚµÄ¿ªÊ¼µØÖ·ºÍ´óĞ¡
+// å–å¾—èŠ‚çš„å¼€å§‹åœ°å€å’Œå¤§å°
 function SectionInfo(){};
 SectionInfo.prototype.sectionInfo = []; 
 SectionInfo.prototype.init = function(sectionData){
@@ -97,11 +97,11 @@ window.onload = function (){
     navigation.style.width = leftWidth + 'px';
     navigation.style.float = 'left';
     navigation.innerHTML += '<div>' +
-                                '<label for="RVA">RVA£º</label>' +
+                                '<label for="RVA">RVAï¼š</label>' +
                                 '<input type="text" id="RVA" name="RVA" onkeyup="transRVAToFoa()">' +
                             '</div>';
     navigation.innerHTML += '<div style="margin-bottom:20px;">' +
-                                '<label for="FOA">FOA£º</label>' +
+                                '<label for="FOA">FOAï¼š</label>' +
                                 '<input type="text" id="FOA" name="FOA" readonly="readonly">' +
                             '</div>';
 
@@ -136,7 +136,7 @@ window.onload = function (){
 	    tableContainer.appendChild(document.createElement('br'));
 	}
 	if (PEDelayImportData.length != 0) {
-	    showImportData(PEDelayImportData,tableContainer,"ÑÓ³Ùµ¼Èë±í");
+	    showImportData(PEDelayImportData,tableContainer,"å»¶è¿Ÿå¯¼å…¥è¡¨");
 	    tableContainer.appendChild(document.createElement('br'));
 	    tableContainer.appendChild(document.createElement('br'));
 	}
@@ -199,7 +199,7 @@ function showBaseData(data,container){
 	table.cellSpacing = 0;
 	table.width = '100%';
 	
-	// ±êÌâ
+	// æ ‡é¢˜
 	var caption = document.createElement('caption');
     caption.appendChild(document.createTextNode( data['name'] )); 
     caption.title = data['title'];
@@ -222,7 +222,7 @@ function showBaseData(data,container){
 		
 			var str = data['value'][i][prop];
 			
-			// ×ª»»ÒÔvalue¿ªÍ·µÄ×Ö·û´®
+			// è½¬æ¢ä»¥valueå¼€å¤´çš„å­—ç¬¦ä¸²
 			var addr = prop.indexOf('value');
 			if ( addr >= 0 && (typeof str === 'number') ){
 			    var detail = prop.slice(5);
@@ -230,30 +230,30 @@ function showBaseData(data,container){
 			    if ( detail.length == 0 )
 			        str = '0x ' + parseInt(str, 10).toFormatString(16,length );
 	            else
-			        str = detail + '£º' + '0x ' + parseInt(str, 10).toFormatString(16, length);
+			        str = detail + 'ï¼š' + '0x ' + parseInt(str, 10).toFormatString(16, length);
 			}
 			
-			// ¶¨Î» TimeDateStamp £¬ ×ª»»Ê±¼ä´ÁÎªÈ·¶¨µÄÊ±¼ä
+			// å®šä½ TimeDateStamp ï¼Œ è½¬æ¢æ—¶é—´æˆ³ä¸ºç¡®å®šçš„æ—¶é—´
 			if ( prop == 'desc' && data['value'][i]['name'] == 'TimeDateStamp' ){
-			    str += '£º' + translateTimeStamp( parseInt( data['value'][i]['value'],10 ) );
+			    str += 'ï¼š' + translateTimeStamp( parseInt( data['value'][i]['value'],10 ) );
 			}
 			
 			j++;
 			row.insertCell().appendChild( document.createTextNode( str ) );
 		}
-		row.cells[row.cells.length-1].title = row.cells[ 0 ].innerHTML + '£º' + row.cells[ 1 ].innerHTML;
+		row.cells[row.cells.length-1].title = row.cells[ 0 ].innerHTML + 'ï¼š' + row.cells[ 1 ].innerHTML;
 	}
 	
-	// ²åÈë±íÍ·
+	// æ’å…¥è¡¨å¤´
 	var th1 = document.createElement('th');
 	var th2 = document.createElement('th');
 	var th3 = document.createElement('th');
 	var th4 = document.createElement('th');
 
-	th1.appendChild( document.createTextNode('ÊôĞÔÃû') );
-	th2.appendChild( document.createTextNode('ÊôĞÔÖµ') );
-	th3.appendChild( document.createTextNode('±äÁ¿³¤¶È') );
-	th4.appendChild( document.createTextNode('±¸×¢') );	
+	th1.appendChild( document.createTextNode('å±æ€§å') );
+	th2.appendChild( document.createTextNode('å±æ€§å€¼') );
+	th3.appendChild( document.createTextNode('å˜é‡é•¿åº¦') );
+	th4.appendChild( document.createTextNode('å¤‡æ³¨') );	
     th1.width = '15%';
     th2.width = Number((j-3)*15).toString() + '%';
 	th2.colSpan = Number(j-3).toString() ;
@@ -272,7 +272,7 @@ function showImportData(data,container,tableName){
 
     table.width = '100%';
 	table.cellSpacing = 0;
-	caption.appendChild(document.createTextNode( tableName == null ? 'µ¼Èë±í' : tableName )); 
+	caption.appendChild(document.createTextNode( tableName == null ? 'å¯¼å…¥è¡¨' : tableName )); 
 
     container.appendChild( table );
 	table.appendChild(caption);	
@@ -285,9 +285,9 @@ function showImportData(data,container,tableName){
 	var th1 = document.createElement('th');
 	var th2 = document.createElement('th');
 	var th3 = document.createElement('th');
-	th1.appendChild(document.createTextNode('Ä£¿éÃû'));
-	th2.appendChild(document.createTextNode('º¯Êı±àºÅ'));
-	th3.appendChild(document.createTextNode('º¯ÊıÃû'));
+	th1.appendChild(document.createTextNode('æ¨¡å—å'));
+	th2.appendChild(document.createTextNode('å‡½æ•°ç¼–å·'));
+	th3.appendChild(document.createTextNode('å‡½æ•°å'));
 	row.appendChild(th1);
 	row.appendChild(th2);
 	row.appendChild(th3);
@@ -326,7 +326,7 @@ function showExportData(data, container) {
 
     table.width = '100%';
     table.cellSpacing = 0;
-    caption.appendChild(document.createTextNode('µ¼³ö±í : ' + data[0]['name']));
+    caption.appendChild(document.createTextNode('å¯¼å‡ºè¡¨ : ' + data[0]['name']));
 
     container.appendChild(table);
     table.appendChild(caption);
@@ -338,9 +338,9 @@ function showExportData(data, container) {
     var th1 = document.createElement('th');
     var th2 = document.createElement('th');
     var th3 = document.createElement('th');
-    th1.appendChild(document.createTextNode('º¯Êı±àºÅ'));
-    th2.appendChild(document.createTextNode('º¯ÊıÃû'));
-    th3.appendChild(document.createTextNode('Æ«ÒÆµØÖ·£¨RVA£©'));
+    th1.appendChild(document.createTextNode('å‡½æ•°ç¼–å·'));
+    th2.appendChild(document.createTextNode('å‡½æ•°å'));
+    th3.appendChild(document.createTextNode('åç§»åœ°å€ï¼ˆRVAï¼‰'));
     row.appendChild(th1);
     row.appendChild(th2);
     row.appendChild(th3);
@@ -366,7 +366,7 @@ function showRelocationData(data, container)
 
     table.width = '100%';
     table.cellSpacing = 0;
-    caption.appendChild(document.createTextNode('ÖØ¶¨Î»±í'));
+    caption.appendChild(document.createTextNode('é‡å®šä½è¡¨'));
 
     container.appendChild(table);
     table.appendChild(caption);
@@ -379,12 +379,12 @@ function showRelocationData(data, container)
 
     for (var i = 0 ; i < data.length ; i++) {
         str = '';
-        str += 'Ò³»ùÖ·RVA£º0x ' + parseInt(data[i]['BaseAddrRVA'],10).toFormatString(16);
+        str += 'é¡µåŸºå€RVAï¼š0x ' + parseInt(data[i]['BaseAddrRVA'],10).toFormatString(16);
         str += '<span>';
-        str += 'ÖØ¶¨Î»¿é´óĞ¡£º0x ' + parseInt(data[i]['SizeOfBlock'], 10).toFormatString(16);
+        str += 'é‡å®šä½å—å¤§å°ï¼š0x ' + parseInt(data[i]['SizeOfBlock'], 10).toFormatString(16);
         str += '</span>';
         str += '<span><span><span>'
-        str += '±í¸ñÖĞÊı¾İµÄ¹æÔò£º  ÖØ¶¨Î»ĞÅÏ¢   (VAËùÖ¸ÏòµØÖ·µÄ³¤¶È)   RVA';
+        str += 'è¡¨æ ¼ä¸­æ•°æ®çš„è§„åˆ™ï¼š  é‡å®šä½ä¿¡æ¯   (VAæ‰€æŒ‡å‘åœ°å€çš„é•¿åº¦)   RVA';
         str += '</span></span></span>'
 
         cell = tbody.insertRow().insertCell()
@@ -396,9 +396,9 @@ function showRelocationData(data, container)
             str = '0x ' + parseInt(data[i]['DataArray'][j]['value'], 10).toFormatString(16);
             str += '<span>';
             switch(data[i]['DataArray'][j]['type']){
-                case 0: str += '(¶ÔÆë)';break;
-                case 3: str += '(32Î»)'; break;
-                case 10: str += '(64Î»)'; break;
+                case 0: str += '(å¯¹é½)';break;
+                case 3: str += '(32ä½)'; break;
+                case 10: str += '(64ä½)'; break;
             }
             str += '</span>';
             str += '<span>';
